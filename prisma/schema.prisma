@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Admin model for authentication
+model Admin {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("admins")
+}
+
+// Main category model
+model MainCategory {
+  id            String        @id @default(cuid())
+  name          String        @unique
+  nameAr        String        @unique
+  description   String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  
+  // Relations
+  subCategories SubCategory[]
+  documents     Document[]
+
+  @@map("main_categories")
+}
+
+// Sub category model
+model SubCategory {
+  id             String       @id @default(cuid())
+  name           String
+  nameAr         String
+  description    String?
+  mainCategoryId String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  mainCategory   MainCategory @relation(fields: [mainCategoryId], references: [id], onDelete: Cascade)
+  documents      Document[]
+
+  @@unique([name, mainCategoryId])
+  @@unique([nameAr, mainCategoryId])
+  @@map("sub_categories")
+}
+
+// Document model
+model Document {
+  id              String       @id @default(cuid())
+  title           String
+  titleAr         String
+  description     String?
+  descriptionAr   String?
+  fileName        String
+  originalName    String
+  filePath        String
+  fileSize        Int
+  mimeType        String
+  fileExtension   String
+  uploadDate      DateTime     @default(now())
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  mainCategoryId  String
+  subCategoryId   String?
+
+  // Relations
+  mainCategory    MainCategory @relation(fields: [mainCategoryId], references: [id], onDelete: Cascade)
+  subCategory     SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: SetNull)
+
+  @@map("documents")
+}

@@ -1,26 +1,157 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', 'Almarai', Arial, sans-serif;
+  direction: rtl;
+  text-align: right;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0.2px;
+}
+
+/* Arabic text enhancement with Gulf-friendly fonts */
+.arabic-text {
+  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', 'Almarai', sans-serif;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.3px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Enhanced Arabic typography for different text sizes */
+.arabic-text-lg {
+  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: 0.4px;
+}
+
+.arabic-text-xl {
+  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+.arabic-text-bold {
+  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+  font-weight: 700;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+/* Button contrast fixes */
+.btn-primary {
+  background-color: #2563eb !important;
+  color: #ffffff !important;
+  border: 1px solid #1d4ed8 !important;
+}
+
+.btn-primary:hover {
+  background-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+.btn-secondary {
+  background-color: #6b7280 !important;
+  color: #ffffff !important;
+  border: 1px solid #4b5563 !important;
+}
+
+.btn-secondary:hover {
+  background-color: #4b5563 !important;
+  color: #ffffff !important;
+}
+
+.btn-danger {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  border: 1px solid #b91c1c !important;
+}
+
+.btn-danger:hover {
+  background-color: #b91c1c !important;
+  color: #ffffff !important;
+}
+
+.btn-outline {
+  background-color: #ffffff !important;
+  color: #1f2937 !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.btn-outline:hover {
+  background-color: #f3f4f6 !important;
+  color: #111827 !important;
+}
+
+/* Icon colors */
+.icon-primary {
+  color: #2563eb !important;
+}
+
+.icon-secondary {
+  color: #6b7280 !important;
+}
+
+.icon-danger {
+  color: #dc2626 !important;
+}
+
+.icon-success {
+  color: #059669 !important;
+}
+
+.icon-white {
+  color: #ffffff !important;
+}
+
+.icon-dark {
+  color: #1f2937 !important;
+}
+
+/* Text contrast improvements */
+.text-high-contrast {
+  color: #111827 !important;
+  font-weight: 500;
+}
+
+.text-medium-contrast {
+  color: #374151 !important;
+  font-weight: 400;
+}
+
+/* Card and container improvements */
+.card-enhanced {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.card-enhanced:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Input improvements */
+.input-enhanced {
+  border: 1px solid #d1d5db !important;
+  background-color: #ffffff !important;
+  color: #111827 !important;
+}
+
+.input-enhanced:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
 }
