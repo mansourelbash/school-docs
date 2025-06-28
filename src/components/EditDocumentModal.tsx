@@ -15,7 +15,12 @@ interface Document {
   descriptionAr?: string
   fileName: string
   originalName: string
+  filePath: string
+  cloudinaryUrl?: string
+  cloudinaryId?: string
   fileSize: number
+  mimeType: string
+  fileExtension: string
   uploadDate: string
   mainCategoryId: string
   subCategoryId?: string

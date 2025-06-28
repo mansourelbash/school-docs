@@ -1,55 +1,112 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+/* خطوط عربية محسنة لدول الخليج العربي */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #1a1a1a;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #64748b;
+  --accent: #f59e0b;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --border: #e2e8f0;
+  --card-bg: #ffffff;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', 'Almarai', Arial, sans-serif;
+  /* خط تجوال مناسب جداً للسعودية والإمارات */
+  font-family: 'Tajawal', 'Noto Sans Arabic', 'Almarai', 'IBM Plex Sans Arabic', Arial, sans-serif;
   direction: rtl;
   text-align: right;
   font-weight: 400;
-  line-height: 1.7;
-  letter-spacing: 0.2px;
-}
-
-/* Arabic text enhancement with Gulf-friendly fonts */
-.arabic-text {
-  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', 'Almarai', sans-serif;
-  font-weight: 400;
   line-height: 1.8;
-  letter-spacing: 0.3px;
-  text-rendering: optimizeLegibility;
+  letter-spacing: 0.25px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Enhanced Arabic typography for different text sizes */
-.arabic-text-lg {
-  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+/* خطوط عربية محسنة لدول الخليج */
+.gulf-arabic-text {
+  font-family: 'Tajawal', 'Noto Sans Arabic', 'Almarai', sans-serif;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.3px;
+  text-rendering: optimizeLegibility;
+}
+
+/* تحسينات خاصة بالخط العربي لأحجام مختلفة */
+.gulf-text-sm {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.25px;
+}
+
+.gulf-text-base {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
   font-weight: 500;
-  line-height: 1.6;
+  line-height: 1.8;
+  letter-spacing: 0.3px;
+}
+
+.gulf-text-lg {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+  font-weight: 500;
+  line-height: 1.7;
   letter-spacing: 0.4px;
 }
 
-.arabic-text-xl {
-  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+.gulf-text-xl {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
   font-weight: 600;
-  line-height: 1.5;
+  line-height: 1.6;
   letter-spacing: 0.5px;
 }
 
-.arabic-text-bold {
-  font-family: 'Noto Sans Arabic', 'IBM Plex Sans Arabic', sans-serif;
+.gulf-text-2xl {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.6px;
+}
+
+.gulf-text-bold {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
   font-weight: 700;
   line-height: 1.6;
   letter-spacing: 0.3px;
+}
+
+/* تحسينات التصميم العام */
+.modern-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+  transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.gulf-gradient {
+  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
 }
 
 /* Button contrast fixes */
@@ -154,4 +211,119 @@ body {
 .input-enhanced:focus {
   border-color: #2563eb !important;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
+}
+
+/* تحسينات إضافية للقراءة وإمكانية الوصول */
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* تحسينات الخط العربي للمحتوى الطويل */
+.gulf-text-content {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: 0.3px;
+  word-spacing: 2px;
+}
+
+/* تحسينات الظلال والانتقالات */
+.modern-shadow {
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+.modern-shadow-lg {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* تحسينات الأزرار للأسلوب الخليجي */
+.gulf-button {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gulf-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+/* تحسينات الكروت */
+.gulf-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* تحسينات الألوان للدول الخليجية */
+.gulf-primary {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+.gulf-secondary {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.gulf-accent {
+  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+}
+
+/* تحسينات التركيز للوصولية */
+.focus-gulf:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-color: #3b82f6;
+}
+
+/* تحسينات الرسوم المتحركة */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* تحسينات إضافية للنصوص الطويلة */
+.gulf-paragraph {
+  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
+  font-weight: 400;
+  line-height: 2.2;
+  letter-spacing: 0.4px;
+  word-spacing: 3px;
+  color: #374151;
+}
+
+/* Media queries للجوال */
+@media (max-width: 640px) {
+  .gulf-text-responsive {
+    font-size: 0.9rem;
+    line-height: 1.9;
+  }
 }

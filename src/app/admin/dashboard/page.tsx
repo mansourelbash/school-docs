@@ -28,7 +28,12 @@ interface Document {
   descriptionAr?: string
   fileName: string
   originalName: string
+  filePath: string
+  cloudinaryUrl?: string
+  cloudinaryId?: string
   fileSize: number
+  mimeType: string
+  fileExtension: string
   uploadDate: string
   mainCategoryId: string
   subCategoryId?: string
@@ -144,11 +149,16 @@ export default function AdminDashboard() {
         throw new Error('فشل في حذف الملف')
       }
 
+      // Update local state
       setDocuments(prevDocs => prevDocs.filter(doc => doc.id !== documentId))
       setStats(prevStats => ({
         ...prevStats,
         totalDocuments: prevStats.totalDocuments - 1
       }))
+
+      // Show success message
+      console.log('✅ تم حذف الملف بنجاح من المنصة و Cloudinary')
+      
     } catch (error) {
       console.error('Error deleting document:', error)
       alert('حدث خطأ أثناء حذف الملف')

@@ -70,7 +70,9 @@ model Document {
   descriptionAr   String?
   fileName        String
   originalName    String
-  filePath        String
+  filePath        String       // Local path (for backward compatibility)
+  cloudinaryUrl   String?      // Cloudinary secure URL
+  cloudinaryId    String?      // Cloudinary public ID for deletion
   fileSize        Int
   mimeType        String
   fileExtension   String

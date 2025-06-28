@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 import prisma from "@/lib/prisma"
-import { readFile } from "fs/promises"
-import path from "path"
 
 export async function GET(
   request: NextRequest,
@@ -20,24 +18,21 @@ export async function GET(
       )
     }
 
-    const filePath = path.join(process.cwd(), 'public', 'uploads', document.fileName)
-    
-    try {
-      const fileBuffer = await readFile(filePath)
-      
-      return new NextResponse(fileBuffer, {
-        headers: {
-          'Content-Type': document.mimeType,
-          'Content-Disposition': `attachment; filename="${encodeURIComponent(document.originalName)}"`,
-          'Content-Length': document.fileSize.toString()
-        }
-      })
-    } catch (error) {
-      return NextResponse.json(
-        { error: "فشل في قراءة الملف" },
-        { status: 500 }
-      )
+    // If document has Cloudinary URL, redirect to it
+    if (document.cloudinaryUrl) {
+      return NextResponse.redirect(document.cloudinaryUrl)
     }
+    
+    // Fallback to local file (for backward compatibility)
+    if (document.filePath.startsWith('/uploads/')) {
+      const fileUrl = `${request.nextUrl.origin}${document.filePath}`
+      return NextResponse.redirect(fileUrl)
+    }
+    
+    return NextResponse.json(
+      { error: "الملف غير متوفر" },
+      { status: 404 }
+    )
   } catch (error) {
     console.error('Error downloading document:', error)
     return NextResponse.json(

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../auth/[...nextauth]/route"
 import prisma from "@/lib/prisma"
-import { writeFile, mkdir } from "fs/promises"
+import { uploadToCloudinary } from "@/lib/cloudinary"
 import path from "path"
 
 // Get all documents with filtering and search
@@ -128,22 +128,18 @@ export async function POST(request: NextRequest) {
     // Generate unique filename
     const fileExtension = path.extname(file.name)
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}${fileExtension}`
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads')
-    const filePath = path.join(uploadDir, fileName)
 
-    // Ensure upload directory exists
-    try {
-      await mkdir(uploadDir, { recursive: true })
-    } catch (error) {
-      // Directory might already exist
-    }
-
-    // Save file
+    // Upload file to Cloudinary
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    await writeFile(filePath, buffer)
+    
+    const cloudinaryResult = await uploadToCloudinary(
+      buffer,
+      fileName,
+      'school-docs'
+    )
 
-    // Save document to database
+    // Save document to database with Cloudinary info
     const document = await prisma.document.create({
       data: {
         title,
@@ -152,7 +148,9 @@ export async function POST(request: NextRequest) {
         descriptionAr: descriptionAr || '',
         fileName,
         originalName: file.name,
-        filePath: `/uploads/${fileName}`,
+        filePath: cloudinaryResult.url, // Store Cloudinary URL as main path
+        cloudinaryUrl: cloudinaryResult.url,
+        cloudinaryId: cloudinaryResult.publicId,
         fileSize: file.size,
         mimeType: file.type,
         fileExtension,

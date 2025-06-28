@@ -2,8 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "../../auth/[...nextauth]/route"
 import prisma from "@/lib/prisma"
-import { unlink } from "fs/promises"
-import path from "path"
+import { deleteFromCloudinary } from "@/lib/cloudinary"
 
 // Get single document
 export async function GET(
@@ -119,12 +118,15 @@ export async function DELETE(
       )
     }
 
-    // Delete file from filesystem
+    // Delete file from Cloudinary
     try {
-      const filePath = path.join(process.cwd(), 'public', 'uploads', document.fileName)
-      await unlink(filePath)
+      if (document.cloudinaryId) {
+        console.log(`🗑️ حذف الملف من Cloudinary: ${document.cloudinaryId}`)
+        await deleteFromCloudinary(document.cloudinaryId)
+        console.log(`✅ تم حذف الملف من Cloudinary بنجاح: ${document.originalName}`)
+      }
     } catch (fileError) {
-      console.warn('Could not delete file from filesystem:', fileError)
+      console.warn('Could not delete file from Cloudinary:', fileError)
       // Continue with database deletion even if file deletion fails
     }
 
