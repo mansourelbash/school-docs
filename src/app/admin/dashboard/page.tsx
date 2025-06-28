@@ -6,6 +6,8 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import EditDocumentModal from "@/components/EditDocumentModal"
 import DeleteConfirmModal from "@/components/DeleteConfirmModal"
+import ThemeChanger from "@/components/ThemeChanger"
+import UserProfile from "@/components/UserProfile"
 import { 
   FileText, 
   FolderOpen, 
@@ -204,12 +206,20 @@ export default function AdminDashboard() {
               </h1>
             </div>
             <div className="flex items-center space-x-4 space-x-reverse">
-              <span className="text-sm text-gray-800 arabic-text font-medium">
-                مرحباً، {session?.user?.name}
-              </span>
+              <ThemeChanger />
+              <UserProfile />
+              <Button 
+                variant="outline" 
+                onClick={() => router.push("/admin/categories")}
+                className="flex items-center gulf-button"
+              >
+                <FolderOpen className="h-4 w-4 ml-2" />
+                إدارة التصنيفات
+              </Button>
               <Button 
                 variant="outline" 
                 onClick={() => router.push("/admin/upload")}
+                className="gulf-button"
               >
                 <Plus className="h-4 w-4 ml-2" />
                 رفع ملف جديد

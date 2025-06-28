@@ -62,10 +62,16 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     console.error('Error fetching documents:', error)
-    return NextResponse.json(
-      { error: "فشل في جلب الملفات" },
-      { status: 500 }
-    )
+    // إرجاع هيكل صحيح مع مصفوفة فارغة للملفات لتجنب مشاكل في .map()
+    return NextResponse.json({
+      documents: [],
+      pagination: {
+        total: 0,
+        page: 1,
+        limit: 50,
+        totalPages: 0
+      }
+    }, { status: 500 })
   }
 }
 
@@ -125,18 +131,45 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Get category information for folder structure
+    const mainCategory = await prisma.mainCategory.findUnique({
+      where: { id: mainCategoryId }
+    })
+
+    if (!mainCategory) {
+      return NextResponse.json(
+        { error: "التصنيف الرئيسي غير موجود" },
+        { status: 404 }
+      )
+    }
+
+    let subCategory = null
+    if (subCategoryId) {
+      subCategory = await prisma.subCategory.findUnique({
+        where: { id: subCategoryId }
+      })
+
+      if (!subCategory) {
+        return NextResponse.json(
+          { error: "التصنيف الفرعي غير موجود" },
+          { status: 404 }
+        )
+      }
+    }
+
     // Generate unique filename
     const fileExtension = path.extname(file.name)
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}${fileExtension}`
 
-    // Upload file to Cloudinary
+    // Upload file to Cloudinary with organized folder structure
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
     
     const cloudinaryResult = await uploadToCloudinary(
       buffer,
       fileName,
-      'school-docs'
+      mainCategory.nameAr,
+      subCategory?.nameAr
     )
 
     // Save document to database with Cloudinary info

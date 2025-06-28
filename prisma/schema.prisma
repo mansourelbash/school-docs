@@ -20,6 +20,7 @@ model Admin {
   email     String   @unique
   password  String
   name      String
+  image     String?  // صورة المشرف
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

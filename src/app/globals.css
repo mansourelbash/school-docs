@@ -1,31 +1,218 @@
 @import "tailwindcss";
-/* خطوط عربية محسنة لدول الخليج العربي */
+
+/* خطوط عربية محسنة */
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
 
+/* متغيرات الثيم الأساسية */
 :root {
-  --background: #fafafa;
-  --foreground: #1a1a1a;
-  --primary: #2563eb;
-  --primary-dark: #1d4ed8;
-  --secondary: #64748b;
-  --accent: #f59e0b;
-  --success: #059669;
-  --warning: #d97706;
-  --error: #dc2626;
-  --border: #e2e8f0;
-  --card-bg: #ffffff;
-  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  /* Light Theme - Enhanced Default (Gray) */
+  --primary: 71 85 105; /* slate-600 - رمادي هادئ للعين */
+  --primary-dark: 51 65 85; /* slate-700 */
+  --primary-light: 241 245 249; /* slate-100 */
+  --primary-foreground: 255 255 255;
+  
+  --secondary: 248 250 252; /* slate-50 */
+  --secondary-foreground: 15 23 42;
+  --secondary-hover: 241 245 249; /* slate-100 */
+  
+  --background: 255 255 255;
+  --background-secondary: 249 250 251; /* gray-50 */
+  --background-tertiary: 243 244 246; /* gray-100 */
+  
+  --foreground: 17 24 39; /* gray-900 */
+  --foreground-muted: 75 85 99; /* gray-600 */
+  
+  --card: 255 255 255;
+  --card-foreground: 17 24 39;
+  --card-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --card-hover: 249 250 251;
+  
+  --border: 229 231 235; /* gray-200 */
+  --border-strong: 209 213 219; /* gray-300 */
+  
+  --input: 255 255 255;
+  --input-foreground: 17 24 39;
+  --input-border: 209 213 219;
+  --input-focus: 71 85 105;
+  
+  --ring: 71 85 105;
+  --muted: 249 250 251;
+  --muted-foreground: 107 114 128;
+  
+  --accent: 16 185 129; /* emerald-500 */
+  --accent-foreground: 255 255 255;
+  
+  --success: 34 197 94; /* green-500 */
+  --success-light: 240 253 244; /* green-50 */
+  --success-dark: 22 163 74; /* green-600 */
+  
+  --warning: 245 158 11; /* amber-500 */
+  --warning-light: 255 251 235; /* amber-50 */
+  --warning-dark: 217 119 6; /* amber-600 */
+  
+  --error: 239 68 68; /* red-500 */
+  --error-light: 254 242 242; /* red-50 */
+  --error-dark: 220 38 38; /* red-600 */
+  
+  --info: 59 130 246; /* blue-500 */
+  --info-light: 239 246 255; /* blue-50 */
+  --info-dark: 37 99 235; /* blue-600 */
+  
+  /* خطوط */
+  --font-el-messiri: 'El Messiri', 'Almarai', 'Noto Sans Arabic', sans-serif;
+  --font-almarai: 'Almarai', 'El Messiri', 'Noto Sans Arabic', sans-serif;
 }
 
+[data-theme="dark"] {
+  /* Dark Theme - Enhanced (Gray) */
+  --primary: 148 163 184; /* slate-400 - رمادي فاتح للثيم الداكن */
+  --primary-dark: 100 116 139; /* slate-500 */
+  --primary-light: 51 65 85; /* slate-700 */
+  --primary-foreground: 15 23 42;
+  
+  --secondary: 51 65 85; /* slate-700 */
+  --secondary-foreground: 248 250 252;
+  --secondary-hover: 71 85 105; /* slate-600 */
+  
+  --background: 15 23 42; /* slate-900 */
+  --background-secondary: 30 41 59; /* slate-800 */
+  --background-tertiary: 51 65 85; /* slate-700 */
+  
+  --foreground: 248 250 252; /* slate-50 */
+  --foreground-muted: 148 163 184; /* slate-400 */
+  
+  --card: 30 41 59; /* slate-800 */
+  --card-foreground: 248 250 252;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.3), 0 2px 4px -2px rgb(0 0 0 / 0.3);
+  --card-hover: 51 65 85;
+  
+  --border: 71 85 105; /* slate-600 */
+  --border-strong: 100 116 139; /* slate-500 */
+  
+  --input: 51 65 85; /* slate-700 */
+  --input-foreground: 248 250 252;
+  --input-border: 100 116 139; /* slate-500 */
+  --input-focus: 148 163 184;
+  
+  --ring: 148 163 184;
+  --muted: 51 65 85;
+  --muted-foreground: 148 163 184;
+  
+  --accent: 52 211 153; /* emerald-400 */
+  --accent-foreground: 15 23 42;
+  
+  --success: 74 222 128; /* green-400 */
+  --success-light: 6 78 59; /* green-900 */
+  --success-dark: 34 197 94; /* green-500 */
+  
+  --warning: 251 191 36; /* amber-400 */
+  --warning-light: 120 53 15; /* amber-900 */
+  --warning-dark: 245 158 11; /* amber-500 */
+  
+  --error: 248 113 113; /* red-400 */
+  --error-light: 127 29 29; /* red-900 */
+  --error-dark: 239 68 68; /* red-500 */
+  
+  --info: 96 165 250; /* blue-400 */
+  --info-light: 30 58 138; /* blue-900 */
+  --info-dark: 59 130 246; /* blue-500 */
+}
+
+/* Dark themes with different colors */
+[data-theme="dark"][data-color="blue"] {
+  --primary: 59 130 246;
+  --primary-dark: 37 99 235;
+  --primary-light: 147 197 253;
+}
+
+[data-theme="dark"][data-color="green"] {
+  --primary: 34 197 94;
+  --primary-dark: 22 163 74;
+  --primary-light: 134 239 172;
+}
+
+[data-theme="dark"][data-color="purple"] {
+  --primary: 168 85 247;
+  --primary-dark: 147 51 234;
+  --primary-light: 196 181 253;
+}
+
+[data-theme="dark"][data-color="orange"] {
+  --primary: 249 115 22;
+  --primary-dark: 234 88 12;
+  --primary-light: 253 186 116;
+}
+
+[data-theme="dark"][data-color="red"] {
+  --primary: 239 68 68;
+  --primary-dark: 220 38 38;
+  --primary-light: 252 165 165;
+}
+
+[data-theme="dark"][data-color="teal"] {
+  --primary: 20 184 166;
+  --primary-dark: 13 148 136;
+  --primary-light: 153 246 228;
+}
+
+/* Dark Theme Color Variations - ألوان مريحة للعين */
+[data-theme="dark"][data-color="gray"] {
+  --primary: 148 163 184; /* slate-400 */
+  --primary-dark: 100 116 139; /* slate-500 */
+  --primary-light: 51 65 85; /* slate-700 */
+}
+
+[data-theme="dark"][data-color="blue"] {
+  --primary: 147 197 253; /* blue-300 - أزرق ناعم للثيم الداكن */
+  --primary-dark: 96 165 250; /* blue-400 */
+  --primary-light: 30 58 138; /* blue-900 */
+}
+
+[data-theme="dark"][data-color="green"] {
+  --primary: 110 231 183; /* emerald-300 - أخضر ناعم */
+  --primary-dark: 52 211 153; /* emerald-400 */
+  --primary-light: 6 78 59; /* emerald-900 */
+}
+
+[data-theme="dark"][data-color="teal"] {
+  --primary: 94 234 212; /* teal-300 - تيل ناعم */
+  --primary-dark: 45 212 191; /* teal-400 */
+  --primary-light: 19 78 74; /* teal-900 */
+}
+
+/* Light Theme Color Variations - ألوان مريحة للعين */
+[data-color="gray"] {
+  --primary: 71 85 105; /* slate-600 - رمادي هادئ */
+  --primary-dark: 51 65 85; /* slate-700 */
+  --primary-light: 241 245 249; /* slate-100 */
+}
+
+[data-color="blue"] {
+  --primary: 30 64 175; /* blue-800 - أزرق هادئ */
+  --primary-dark: 30 58 138; /* blue-900 */
+  --primary-light: 239 246 255; /* blue-50 */
+}
+
+[data-color="green"] {
+  --primary: 5 150 105; /* emerald-600 - أخضر مريح */
+  --primary-dark: 6 120 95; /* emerald-700 */
+  --primary-light: 236 253 245; /* emerald-50 */
+}
+
+[data-color="teal"] {
+  --primary: 13 148 136; /* teal-600 - تيل هادئ */
+  --primary-dark: 15 118 110; /* teal-700 */
+  --primary-light: 240 253 250; /* teal-50 */
+}
+
+/* تطبيق الثيمات على جميع العناصر */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  /* خط تجوال مناسب جداً للسعودية والإمارات */
-  font-family: 'Tajawal', 'Noto Sans Arabic', 'Almarai', 'IBM Plex Sans Arabic', Arial, sans-serif;
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  font-family: var(--font-el-messiri);
   direction: rtl;
   text-align: right;
   font-weight: 400;
@@ -33,297 +220,470 @@ body {
   letter-spacing: 0.25px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* خطوط عربية محسنة لدول الخليج */
-.gulf-arabic-text {
-  font-family: 'Tajawal', 'Noto Sans Arabic', 'Almarai', sans-serif;
-  font-weight: 400;
-  line-height: 1.9;
-  letter-spacing: 0.3px;
-  text-rendering: optimizeLegibility;
+/* Ensure theme variables are applied immediately */
+html {
+  --primary: 59 130 246;
+  --primary-dark: 37 99 235;
+  --primary-light: 147 197 253;
+  --primary-foreground: 255 255 255;
+  --secondary: 241 245 249;
+  --secondary-foreground: 15 23 42;
+  --background: 255 255 255;
+  --background-secondary: 248 250 252;
+  --foreground: 15 23 42;
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --border: 226 232 240;
+  --input: 255 255 255;
+  --input-foreground: 15 23 42;
+  --ring: 59 130 246;
+  --muted: 248 250 252;
+  --muted-foreground: 100 116 139;
+  --accent: 59 130 246;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
 }
 
-/* تحسينات خاصة بالخط العربي لأحجام مختلفة */
-.gulf-text-sm {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 400;
-  line-height: 1.9;
-  letter-spacing: 0.25px;
+/* Force immediate theme application */
+html[data-theme] {
+  transition: none !important;
 }
 
-.gulf-text-base {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 500;
-  line-height: 1.8;
-  letter-spacing: 0.3px;
+html[data-theme] * {
+  transition: background-color 0.3s ease, 
+              color 0.3s ease, 
+              border-color 0.3s ease !important;
 }
 
-.gulf-text-lg {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 500;
-  line-height: 1.7;
-  letter-spacing: 0.4px;
+/* Ensure buttons always use theme colors */
+button:not(.theme-ignore),
+.btn:not(.theme-ignore) {
+  background-color: rgb(var(--primary)) !important;
+  color: rgb(var(--primary-foreground)) !important;
+  border-color: rgb(var(--primary)) !important;
 }
 
-.gulf-text-xl {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 600;
-  line-height: 1.6;
-  letter-spacing: 0.5px;
+button:hover:not(.theme-ignore),
+.btn:hover:not(.theme-ignore) {
+  background-color: rgb(var(--primary-dark)) !important;
+  border-color: rgb(var(--primary-dark)) !important;
 }
 
-.gulf-text-2xl {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0.6px;
+/* Secondary buttons */
+.btn-secondary:not(.theme-ignore) {
+  background-color: rgb(var(--secondary)) !important;
+  color: rgb(var(--secondary-foreground)) !important;
+  border-color: rgb(var(--border)) !important;
 }
 
-.gulf-text-bold {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 700;
-  line-height: 1.6;
-  letter-spacing: 0.3px;
+.btn-secondary:hover:not(.theme-ignore) {
+  background-color: rgb(var(--muted)) !important;
 }
 
-/* تحسينات التصميم العام */
-.modern-card {
-  background: var(--card-bg);
-  border-radius: 16px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
+/* Ensure all inputs use theme colors */
+input:not(.theme-ignore),
+textarea:not(.theme-ignore),
+select:not(.theme-ignore) {
+  background-color: rgb(var(--input)) !important;
+  color: rgb(var(--input-foreground)) !important;
+  border-color: rgb(var(--border)) !important;
+}
+
+input:focus:not(.theme-ignore),
+textarea:focus:not(.theme-ignore),
+select:focus:not(.theme-ignore) {
+  border-color: rgb(var(--primary)) !important;
+}
+
+/* Force theme on all text elements */
+h1, h2, h3, h4, h5, h6 {
+  color: rgb(var(--foreground)) !important;
+}
+
+p:not(.theme-ignore), 
+span:not(.theme-ignore), 
+div:not(.theme-ignore) {
+  color: inherit;
+}
+
+/* Icon colors should inherit from parent or use theme */
+.lucide:not(.theme-ignore) {
+  color: inherit;
+}
+
+/* Base Theme Classes */
+.theme-bg { background-color: rgb(var(--background)); }
+.theme-bg-secondary { background-color: rgb(var(--background-secondary)); }
+.theme-text { color: rgb(var(--foreground)); }
+.theme-card { background-color: rgb(var(--card)); color: rgb(var(--card-foreground)); }
+.theme-border { border-color: rgb(var(--border)); }
+.theme-primary { background-color: rgb(var(--primary)); color: rgb(var(--primary-foreground)); }
+.theme-primary-dark { background-color: rgb(var(--primary-dark)); color: rgb(var(--primary-foreground)); }
+.theme-secondary { background-color: rgb(var(--secondary)); color: rgb(var(--secondary-foreground)); }
+.theme-muted { background-color: rgb(var(--muted)); color: rgb(var(--muted-foreground)); }
+
+/* Button Theme Classes */
+.btn-primary {
+  background-color: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+  border: 1px solid rgb(var(--primary));
   transition: all 0.3s ease;
 }
 
-.modern-card:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-2px);
-}
-
-.gradient-bg {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-}
-
-.gulf-gradient {
-  background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #06b6d4 100%);
-}
-
-/* Button contrast fixes */
-.btn-primary {
-  background-color: #2563eb !important;
-  color: #ffffff !important;
-  border: 1px solid #1d4ed8 !important;
-}
-
 .btn-primary:hover {
-  background-color: #1d4ed8 !important;
-  color: #ffffff !important;
+  background-color: rgb(var(--primary-dark));
+  border-color: rgb(var(--primary-dark));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(var(--primary), 0.3);
 }
 
 .btn-secondary {
-  background-color: #6b7280 !important;
-  color: #ffffff !important;
-  border: 1px solid #4b5563 !important;
+  background-color: rgb(var(--secondary));
+  color: rgb(var(--secondary-foreground));
+  border: 1px solid rgb(var(--border));
+  transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background-color: #4b5563 !important;
-  color: #ffffff !important;
-}
-
-.btn-danger {
-  background-color: #dc2626 !important;
-  color: #ffffff !important;
-  border: 1px solid #b91c1c !important;
-}
-
-.btn-danger:hover {
-  background-color: #b91c1c !important;
-  color: #ffffff !important;
-}
-
-.btn-outline {
-  background-color: #ffffff !important;
-  color: #1f2937 !important;
-  border: 1px solid #d1d5db !important;
-}
-
-.btn-outline:hover {
-  background-color: #f3f4f6 !important;
-  color: #111827 !important;
-}
-
-/* Icon colors */
-.icon-primary {
-  color: #2563eb !important;
-}
-
-.icon-secondary {
-  color: #6b7280 !important;
-}
-
-.icon-danger {
-  color: #dc2626 !important;
-}
-
-.icon-success {
-  color: #059669 !important;
-}
-
-.icon-white {
-  color: #ffffff !important;
-}
-
-.icon-dark {
-  color: #1f2937 !important;
-}
-
-/* Text contrast improvements */
-.text-high-contrast {
-  color: #111827 !important;
-  font-weight: 500;
-}
-
-.text-medium-contrast {
-  color: #374151 !important;
-  font-weight: 400;
-}
-
-/* Card and container improvements */
-.card-enhanced {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-}
-
-.card-enhanced:hover {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-}
-
-/* Input improvements */
-.input-enhanced {
-  border: 1px solid #d1d5db !important;
-  background-color: #ffffff !important;
-  color: #111827 !important;
-}
-
-.input-enhanced:focus {
-  border-color: #2563eb !important;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1) !important;
-}
-
-/* تحسينات إضافية للقراءة وإمكانية الوصول */
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-2 {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.line-clamp-3 {
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* تحسينات الخط العربي للمحتوى الطويل */
-.gulf-text-content {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 400;
-  line-height: 2;
-  letter-spacing: 0.3px;
-  word-spacing: 2px;
-}
-
-/* تحسينات الظلال والانتقالات */
-.modern-shadow {
-  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 10px -6px rgba(0, 0, 0, 0.1);
-}
-
-.modern-shadow-lg {
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-}
-
-/* تحسينات الأزرار للأسلوب الخليجي */
-.gulf-button {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.gulf-button:hover {
+  background-color: rgb(var(--muted));
   transform: translateY(-1px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* تحسينات الكروت */
-.gulf-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+/* Input Theme Classes */
+.input-theme {
+  background-color: rgb(var(--input));
+  color: rgb(var(--input-foreground));
+  border: 2px solid rgb(var(--border));
+  transition: all 0.3s ease;
 }
 
-/* تحسينات الألوان للدول الخليجية */
-.gulf-primary {
-  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+.input-theme:focus {
+  border-color: rgb(var(--primary));
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
 }
 
-.gulf-secondary {
-  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+.input-theme::placeholder {
+  color: rgb(var(--muted-foreground));
 }
 
-.gulf-accent {
-  background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+/* Card Theme Classes */
+.card-theme {
+  background-color: rgb(var(--card));
+  color: rgb(var(--card-foreground));
+  border: 1px solid rgb(var(--border));
+  transition: all 0.3s ease;
 }
 
-/* تحسينات التركيز للوصولية */
-.focus-gulf:focus {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-  border-color: #3b82f6;
+.card-theme:hover {
+  box-shadow: 0 10px 25px rgba(var(--primary), 0.1);
+  transform: translateY(-2px);
 }
 
-/* تحسينات الرسوم المتحركة */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
+/* Header Theme Classes */
+.header-theme {
+  background-color: rgba(var(--card), 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgb(var(--border));
+}
+
+/* Modern Card */
+.modern-card {
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  border-radius: 16px;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.modern-card:hover {
+  background: rgb(var(--card-hover));
+  border-color: rgb(var(--primary));
+  box-shadow: 0 10px 25px -5px rgb(var(--primary) / 0.1), 0 4px 6px -2px rgb(var(--primary) / 0.05);
+  transform: translateY(-2px);
+}
+
+/* Gradient Backgrounds */
+.gulf-gradient {
+  background: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--primary-dark)));
+}
+
+.theme-gradient-bg {
+  background: linear-gradient(135deg, 
+    rgb(var(--background)) 0%, 
+    rgb(var(--background-secondary)) 50%, 
+    rgb(var(--background-tertiary)) 100%
+  );
+  min-height: 100vh;
+}
+
+/* Text Theme Classes */
+.text-theme-primary { color: rgb(var(--primary)); }
+.text-theme-secondary { color: rgb(var(--secondary-foreground)); }
+.text-theme-muted { color: rgb(var(--muted-foreground)); }
+.text-theme-success { color: rgb(var(--success)); }
+.text-theme-warning { color: rgb(var(--warning)); }
+.text-theme-error { color: rgb(var(--error)); }
+
+/* Background Theme Classes */
+.bg-theme-primary { background-color: rgb(var(--primary)); }
+.bg-theme-primary-light { background-color: rgb(var(--primary-light)); }
+.bg-theme-secondary { background-color: rgb(var(--secondary)); }
+.bg-theme-success { background-color: rgb(var(--success)); }
+.bg-theme-warning { background-color: rgb(var(--warning)); }
+.bg-theme-error { background-color: rgb(var(--error)); }
+
+/* Border Theme Classes */
+.border-theme { border-color: rgb(var(--border)); }
+.border-theme-primary { border-color: rgb(var(--primary)); }
+
+/* Focus and Hover States */
+.focus-theme:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(var(--primary));
+}
+
+.hover-theme-primary:hover {
+  background-color: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+}
+
+/* تحسينات إضافية للراحة البصرية */
+
+/* تقليل إجهاد العين */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* تباين ألوان محسن للقراءة */
+.theme-text {
+  color: rgb(var(--foreground));
+  opacity: 0.9;
+}
+
+.text-theme-muted {
+  color: rgb(var(--muted-foreground));
+  opacity: 0.8;
+}
+
+/* تظليل ناعم للكروت */
+.modern-card {
+  box-shadow: 
+    0 1px 3px 0 rgb(var(--border) / 0.5),
+    0 1px 2px -1px rgb(var(--border) / 0.3);
+}
+
+.modern-card:hover {
+  box-shadow: 
+    0 4px 6px -1px rgb(var(--primary) / 0.1),
+    0 2px 4px -2px rgb(var(--primary) / 0.06);
+}
+
+/* ألوان أكثر نعومة للحدود */
+.border-theme {
+  border-color: rgb(var(--border) / 0.8);
+}
+
+/* تحسين contrast للنصوص */
+[data-theme="dark"] .theme-text {
+  opacity: 0.95;
+}
+
+[data-theme="dark"] .text-theme-muted {
+  opacity: 0.7;
+}
+
+/* ألوان خفيفة للخلفيات في الثيم الفاتح */
+[data-theme="light"] .theme-secondary {
+  background-color: rgb(var(--background-secondary) / 0.6);
+}
+
+/* ألوان أكثر دفئاً في الثيم الداكن */
+[data-theme="dark"] .theme-secondary {
+  background-color: rgb(var(--background-secondary) / 0.8);
+}
+
+/* إصلاح تنسيق الأزرار في صفحات الإدارة */
+
+/* Action Buttons - محسن للعربية RTL */
+.action-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: flex-start; /* للاتجاه العربي */
+  flex-wrap: wrap;
+}
+
+/* تحسين توزيع الأزرار في الهيدر */
+header .action-buttons {
+  margin-right: auto; /* دفع الأزرار لليسار في RTL */
+}
+
+/* تحسين أزرار الإجراءات في البطاقات */
+.modern-card .action-buttons {
+  justify-content: flex-end; /* محاذاة اليمين للبطاقات */
+  margin-right: 0;
+}
+
+/* إصلاح الأزرار الصغيرة */
+.action-buttons button {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* تحسين التباعد في البطاقات */
+.category-card .action-buttons {
+  gap: 8px;
+}
+
+/* إصلاح التنسيق للشاشات الصغيرة */
+@media (max-width: 768px) {
+  .action-buttons {
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+    margin-top: 12px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  
+  header .action-buttons {
+    margin-right: 0;
+    justify-content: center;
   }
 }
 
-.animate-fade-in-up {
-  animation: fadeInUp 0.6s ease-out;
+/* إصلاح توزيع العناصر في الهيدر */
+.admin-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
 }
 
-/* تحسينات إضافية للنصوص الطويلة */
-.gulf-paragraph {
-  font-family: 'Tajawal', 'Noto Sans Arabic', sans-serif;
-  font-weight: 400;
-  line-height: 2.2;
-  letter-spacing: 0.4px;
-  word-spacing: 3px;
-  color: #374151;
+.admin-header-info {
+  flex: 1;
 }
 
-/* Media queries للجوال */
-@media (max-width: 640px) {
-  .gulf-text-responsive {
-    font-size: 0.9rem;
-    line-height: 1.9;
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* تحسين أزرار التحكم في التصنيفات */
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-radius: 12px;
+  background: rgb(var(--card));
+  border: 1px solid rgb(var(--border));
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.category-item:hover {
+  border-color: rgb(var(--primary));
+  background: rgb(var(--card-hover));
+}
+
+.category-info {
+  flex: 1;
+  margin-left: 16px;
+}
+
+.category-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* إصلاح محدد لصفحة إدارة التصنيفات */
+
+/* تحسين توزيع الأزرار في البطاقات */
+.card-theme .action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+/* التأكد من أن الأزرار لا تتداخل */
+.card-theme .action-buttons button {
+  flex-shrink: 0;
+  min-width: auto;
+}
+
+/* تحسين المسافات والتوزيع */
+.card-theme .theme-secondary {
+  display: block !important;
+}
+
+.card-theme .theme-secondary > div:first-child {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* إصلاح التصنيفات الفرعية */
+.card-theme .theme-bg .action-buttons {
+  gap: 6px;
+  margin-right: 0;
+}
+
+/* تحسين الأزرار الصغيرة */
+.action-buttons .p-2 {
+  padding: 8px !important;
+  min-height: 36px;
+  min-width: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* إصلاح العدادات */
+.action-buttons .theme-card {
+  font-size: 12px;
+  padding: 4px 8px;
+  background: rgb(var(--background-secondary));
+  border: 1px solid rgb(var(--border));
+  color: rgb(var(--foreground-muted));
+}
+
+/* تحسين responsive للأجهزة الصغيرة */
+@media (max-width: 1024px) {
+  .card-theme .action-buttons {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  
+  .action-buttons .theme-card {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 768px) {
+  .card-theme .theme-secondary > div:first-child {
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: stretch !important;
+  }
+  
+  .card-theme .action-buttons {
+    justify-content: center !important;
+    width: 100% !important;
   }
 }

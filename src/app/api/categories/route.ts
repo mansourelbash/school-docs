@@ -8,10 +8,19 @@ export async function GET() {
   try {
     const categories = await prisma.mainCategory.findMany({
       include: {
-        subCategories: true,
+        subCategories: {
+          include: {
+            _count: {
+              select: {
+                documents: true
+              }
+            }
+          }
+        },
         _count: {
           select: {
-            documents: true
+            documents: true,
+            subCategories: true
           }
         }
       },
@@ -23,10 +32,8 @@ export async function GET() {
     return NextResponse.json(categories)
   } catch (error) {
     console.error('Error fetching categories:', error)
-    return NextResponse.json(
-      { error: "فشل في جلب التصنيفات" },
-      { status: 500 }
-    )
+    // إرجاع مصفوفة فارغة بدلاً من object خطأ لتجنب مشاكل في .map()
+    return NextResponse.json([], { status: 500 })
   }
 }
 
