@@ -116,7 +116,7 @@ export default function AdminDashboard() {
         totalSize
       })
     } catch (error) {
-      console.error('Error fetching data:', error)
+      // Handle error silently
     } finally {
       setIsLoading(false)
     }
@@ -157,12 +157,8 @@ export default function AdminDashboard() {
         ...prevStats,
         totalDocuments: prevStats.totalDocuments - 1
       }))
-
-      // Show success message
-      console.log('✅ تم حذف الملف بنجاح من المنصة و Cloudinary')
       
     } catch (error) {
-      console.error('Error deleting document:', error)
       alert('حدث خطأ أثناء حذف الملف')
     }
   }

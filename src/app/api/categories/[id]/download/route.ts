@@ -8,7 +8,6 @@ export async function GET(
 ) {
   try {
     const { id } = await params
-    console.log(`📁 طلب تحميل المجلد للـ ID: ${id}`)
 
     // First, try to find if it's a main category
     let category = await prisma.mainCategory.findUnique({
@@ -53,8 +52,6 @@ export async function GET(
     let documents: any[] = []
 
     if (!category) {
-      console.log(`🔍 لم يتم العثور كتصنيف رئيسي، البحث كتصنيف فرعي...`)
-      
       // If not found, try to find as subcategory
       const subCategory = await prisma.subCategory.findUnique({
         where: { id },
@@ -78,18 +75,15 @@ export async function GET(
       })
 
       if (!subCategory) {
-        console.log(`❌ لم يتم العثور على التصنيف بالـ ID: ${id}`)
         return NextResponse.json(
           { error: 'Category not found' },
           { status: 404 }
         )
       }
 
-      console.log(`✅ تم العثور على تصنيف فرعي: ${subCategory.nameAr}`)
       categoryName = subCategory.nameAr
       documents = subCategory.documents
     } else {
-      console.log(`✅ تم العثور على تصنيف رئيسي: ${category.nameAr}`)
       categoryName = category.nameAr
       // Collect all documents from main category and subcategories
       documents = [
@@ -98,18 +92,7 @@ export async function GET(
       ]
     }
 
-    console.log(`📊 إجمالي الملفات الموجودة: ${documents.length}`)
-    
-    // Log details about each document
-    documents.forEach((doc, index) => {
-      console.log(`📄 ملف ${index + 1}: ${doc.titleAr || doc.title}`)
-      console.log(`   - cloudinaryUrl: ${doc.cloudinaryUrl ? 'موجود' : 'غير موجود'}`)
-      console.log(`   - fileExtension: ${doc.fileExtension}`)
-      console.log(`   - fileSize: ${doc.fileSize}`)
-    })
-
     if (documents.length === 0) {
-      console.log(`⚠️ لا توجد ملفات في التصنيف: ${categoryName}`)
       return NextResponse.json(
         { error: 'No documents found in this category' },
         { status: 404 }
@@ -130,40 +113,34 @@ export async function GET(
 
     // Handle errors
     archive.on('error', (err) => {
-      console.error('❌ خطأ في Archiver:', err)
       throw err
     })
 
     // Handle warnings
     archive.on('warning', (err) => {
-      console.warn('⚠️ تحذير من Archiver:', err)
+      if (err.code !== 'ENOENT') {
+        throw err
+      }
     })
 
     // Handle archive finalization
     const zipBuffer = await new Promise<Buffer>((resolve, reject) => {
       archive.on('end', () => {
         const buffer = Buffer.concat(chunks)
-        console.log(`📦 تم إنشاء الأرشيف بحجم: ${buffer.length} bytes`)
         resolve(buffer)
       })
 
       archive.on('error', (err) => {
-        console.error('❌ خطأ في إنهاء الأرشيف:', err)
         reject(err)
       })
 
       // Add files to archive
       const addFilesToArchive = async () => {
-        console.log(`📦 إنشاء أرشيف لـ ${categoryName} مع ${documents.length} ملف`)
-        
         let addedFiles = 0
         
         for (const document of documents) {
           try {
-            console.log(`🔄 معالجة الملف: ${document.title}`)
-            
             if (document.cloudinaryUrl) {
-              console.log(`📥 تحميل من Cloudinary: ${document.cloudinaryUrl}`)
               
               // Add timeout for fetch
               const controller = new AbortController()
@@ -186,37 +163,28 @@ export async function GET(
                   const fileExtension = document.fileExtension || 'bin'
                   const fileName = `${document.titleAr || document.title}.${fileExtension}`
                   
-                  console.log(`✅ إضافة الملف للأرشيف: ${fileName} (${fileBuffer.byteLength} bytes)`)
-                  
                   archive.append(Buffer.from(fileBuffer), { name: fileName })
                   addedFiles++
                 } else {
-                  console.error(`❌ فشل تحميل الملف ${document.title}: HTTP ${response.status} - ${response.statusText}`)
+                  // Failed to download file
                 }
               } catch (fetchError: any) {
                 clearTimeout(timeoutId)
-                if (fetchError.name === 'AbortError') {
-                  console.error(`⏰ انتهت مهلة تحميل الملف: ${document.title}`)
-                } else {
-                  console.error(`❌ خطأ في تحميل الملف ${document.title}:`, fetchError.message)
-                }
+                // Handle timeout or other errors
               }
             } else if (document.filePath) {
-              // محاولة استخدام filePath كـ fallback
-              console.log(`⚠️ لا يوجد cloudinaryUrl، محاولة استخدام filePath: ${document.filePath}`)
+              // Try to use filePath as fallback
             } else {
-              console.error(`❌ لا يوجد cloudinaryUrl أو filePath للملف: ${document.title}`)
+              // No URL or path available for file
             }
           } catch (error) {
-            console.error(`❌ خطأ في معالجة الملف ${document.title}:`, error)
+            // Error processing file
           }
         }
         
-        console.log(`📊 تم إضافة ${addedFiles} من أصل ${documents.length} ملف للأرشيف`)
         
         if (addedFiles === 0) {
-          console.error('⚠️ لم يتم إضافة أي ملف للأرشيف!')
-          // إضافة ملف نصي يوضح المشكلة
+          // Add a text file explaining the issue
           const errorMessage = `لم يتم العثور على ملفات صالحة للتحميل في هذا التصنيف.\n\nالملفات الموجودة:\n${documents.map(doc => `- ${doc.titleAr || doc.title} (cloudinaryUrl: ${doc.cloudinaryUrl ? 'موجود' : 'غير موجود'})`).join('\n')}`
           archive.append(Buffer.from(errorMessage, 'utf8'), { name: 'README.txt' })
         }
@@ -236,7 +204,6 @@ export async function GET(
     })
 
   } catch (error) {
-    console.error('Error creating archive:', error)
     return NextResponse.json(
       { error: 'Failed to create archive' },
       { status: 500 }

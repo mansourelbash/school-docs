@@ -116,30 +116,24 @@ export default function PublicPage() {
       if (docsResponse.ok) {
         docsData = await docsResponse.json()
       } else {
-        console.error('Documents API error:', docsResponse.status, docsResponse.statusText)
+        docsData = { documents: [] }
       }
       
       if (catsResponse.ok) {
         catsData = await catsResponse.json()
         // التأكد من أن الاستجابة array وليس object خطأ
         if (catsData && typeof catsData === 'object' && catsData.error) {
-          console.error('Categories API returned error:', catsData.error)
           catsData = []
         }
       } else {
-        console.error('Categories API error:', catsResponse.status, catsResponse.statusText)
         catsData = []
       }
-      
-      console.log('📄 Documents data:', docsData)
-      console.log('📁 Categories data:', catsData)
       
       // التأكد من أن البيانات arrays
       setDocuments(Array.isArray(docsData.documents) ? docsData.documents : [])
       setCategories(Array.isArray(catsData) ? catsData : [])
       setFilteredDocuments(Array.isArray(docsData.documents) ? docsData.documents : [])
     } catch (error) {
-      console.error('Error fetching data:', error)
       // تعيين قيم افتراضية في حالة الخطأ
       setDocuments([])
       setCategories([])
@@ -208,15 +202,10 @@ export default function PublicPage() {
 
   const handleDownloadFolder = async (categoryId: string, type: 'category' | 'subcategory') => {
     try {
-      console.log(`🔄 بدء تحميل المجلد: ${categoryId} (${type})`)
-      
       const response = await fetch(`/api/categories/${categoryId}/download`)
-      
-      console.log(`📡 استجابة الخادم: ${response.status} ${response.statusText}`)
       
       if (response.ok) {
         const blob = await response.blob()
-        console.log(`📦 حجم الملف المحمل: ${blob.size} bytes`)
         
         if (blob.size === 0) {
           alert('المجلد فارغ أو لا يحتوي على ملفات')
@@ -246,15 +235,11 @@ export default function PublicPage() {
         a.click()
         window.URL.revokeObjectURL(url)
         document.body.removeChild(a)
-        
-        console.log(`✅ تم تحميل المجلد: ${categoryName}.zip`)
       } else {
         const errorText = await response.text()
-        console.error(`❌ خطأ في الخادم: ${response.status} - ${errorText}`)
         alert(`فشل في تحميل المجلد: ${response.status}`)
       }
     } catch (error) {
-      console.error('❌ خطأ في تحميل المجلد:', error)
       alert('حدث خطأ أثناء تحميل المجلد')
     }
   }

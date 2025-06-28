@@ -7,9 +7,9 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// التحقق من أن متغيرات البيئة مضبوطة
+// Check if environment variables are set
 if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
-  console.error('⚠️ متغيرات البيئة Cloudinary غير مضبوطة بشكل صحيح')
+  throw new Error('Cloudinary environment variables not configured properly')
 }
 
 export default cloudinary;
@@ -65,8 +65,6 @@ export async function uploadProfileImageToCloudinary(
       reject(new Error('متغيرات البيئة Cloudinary غير مضبوطة'))
       return
     }
-
-    console.log('🔄 بدء رفع الصورة إلى Cloudinary...')
     
     cloudinary.uploader.upload_stream(
       {
@@ -81,16 +79,13 @@ export async function uploadProfileImageToCloudinary(
       },
       (error, result) => {
         if (error) {
-          console.error('❌ خطأ في رفع الصورة إلى Cloudinary:', error)
           reject(error);
         } else if (result) {
-          console.log('✅ تم رفع الصورة بنجاح إلى Cloudinary:', result.secure_url)
           resolve({
             url: result.secure_url,
             publicId: result.public_id,
           });
         } else {
-          console.error('❌ لم يتم إرجاع نتيجة من Cloudinary')
           reject(new Error('فشل في رفع الصورة'));
         }
       }
@@ -104,14 +99,13 @@ export async function deleteFromCloudinary(publicId: string): Promise<void> {
     const result = await cloudinary.uploader.destroy(publicId);
     
     if (result.result === 'ok') {
-      console.log(`✅ تم حذف الملف من Cloudinary بنجاح: ${publicId}`);
+      // File deleted successfully
     } else if (result.result === 'not found') {
-      console.warn(`⚠️ الملف غير موجود في Cloudinary: ${publicId}`);
+      // File not found (already deleted or never existed)
     } else {
-      console.warn(`⚠️ نتيجة غير متوقعة من Cloudinary: ${result.result}`);
+      // Unexpected result
     }
   } catch (error) {
-    console.error('❌ خطأ في حذف الملف من Cloudinary:', error);
     throw error;
   }
 }
@@ -146,7 +140,6 @@ export async function getCloudinaryFolderFiles(folderPath: string): Promise<any[
     
     return result.resources || [];
   } catch (error) {
-    console.error('Error getting Cloudinary folder files:', error);
     return [];
   }
 }
@@ -164,9 +157,7 @@ export async function deleteCloudinaryFolder(folderPath: string): Promise<void> 
     
     // Delete the folder itself
     await cloudinary.api.delete_folder(folderPath);
-    console.log(`✅ تم حذف المجلد من Cloudinary بنجاح: ${folderPath}`);
   } catch (error) {
-    console.error('❌ خطأ في حذف المجلد من Cloudinary:', error);
     throw error;
   }
 }
@@ -197,7 +188,6 @@ export function extractPublicIdFromUrl(url: string): string | null {
     
     return publicId
   } catch (error) {
-    console.error('خطأ في استخراج publicId:', error)
     return null
   }
 }

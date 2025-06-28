@@ -44,16 +44,6 @@ export default function UserProfile() {
   // استخدام profileData.image أولاً، ثم session.user.image كbacking
   const currentUserImage = profileData.image || session?.user?.image
   const currentUserName = profileData.name || session?.user?.name
-  
-  // إضافة logs للتتبع (يمكن إزالتها لاحقاً)
-  useEffect(() => {
-    console.log('🔍 Current user image sources:', {
-      profileDataImage: profileData.image,
-      sessionUserImage: session?.user?.image,
-      finalImage: currentUserImage,
-      updateKey: profileUpdateKey
-    })
-  }, [profileData.image, session?.user?.image, currentUserImage, profileUpdateKey])
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -93,9 +83,6 @@ export default function UserProfile() {
 
       const updatedAdmin = await response.json()
       
-      console.log('✅ API Response - Updated admin data:', updatedAdmin) // للتأكد من البيانات المُحدثة
-      console.log('🖼️ New image URL:', updatedAdmin.image) // للتأكد من URL الصورة الجديدة
-      
       // تحديث البيانات المحلية فوراً قبل تحديث الجلسة
       setProfileData({
         name: updatedAdmin.name,
@@ -108,14 +95,6 @@ export default function UserProfile() {
         name: updatedAdmin.name,
         image: updatedAdmin.image
       })
-      
-      console.log('🔄 Session update result:', sessionUpdateResult) // للتأكد من تحديث الجلسة
-      
-      console.log('💾 Local state updated with:', {
-        name: updatedAdmin.name,
-        email: updatedAdmin.email,
-        image: updatedAdmin.image
-      }) // للتأكد من تحديث الحالة المحلية
 
       // إعادة تعيين الحالة
       setIsEditing(false)
@@ -123,10 +102,8 @@ export default function UserProfile() {
       setImagePreview('')
       setProfileUpdateKey(prev => prev + 1) // فرض إعادة التحديث
       
-      console.log('✅ Profile updated successfully!') // تأكيد نجاح التحديث
       
     } catch (error: any) {
-      console.error('Error updating profile:', error)
       setError(error.message || 'حدث خطأ في تحديث الملف الشخصي')
     } finally {
       setIsLoading(false)
@@ -153,10 +130,9 @@ export default function UserProfile() {
               src={currentUserImage} 
               alt={currentUserName || 'مدير النظام'} 
               className="w-full h-full object-cover"
-              onLoad={() => console.log('🖼️ Profile button image loaded:', currentUserImage)}
+              onLoad={() => {}}
               onError={(e) => {
-                console.error('❌ Profile button image failed to load:', currentUserImage)
-                // يمكن إضافة fallback هنا إذا لزم الأمر
+                // Handle image load error
               }}
             />
           ) : (
@@ -190,8 +166,8 @@ export default function UserProfile() {
                         src={currentUserImage} 
                         alt={currentUserName || 'User'} 
                         className="w-full h-full object-cover"
-                        onLoad={() => console.log('🖼️ Profile view image loaded:', currentUserImage)}
-                        onError={(e) => console.error('❌ Profile view image failed to load:', currentUserImage)}
+                        onLoad={() => {}}
+                        onError={(e) => {}}
                       />
                     ) : (
                       <User className="h-8 w-8 text-white" />
@@ -264,8 +240,8 @@ export default function UserProfile() {
                             src={imagePreview || currentUserImage || ''} 
                             alt="Profile" 
                             className="w-full h-full object-cover"
-                            onLoad={() => console.log('🖼️ Profile edit image loaded:', imagePreview || currentUserImage)}
-                            onError={(e) => console.error('❌ Profile edit image failed to load:', imagePreview || currentUserImage)}
+                            onLoad={() => {}}
+                            onError={(e) => {}}
                           />
                         ) : (
                           <User className="h-8 w-8 text-white" />

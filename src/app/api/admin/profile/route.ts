@@ -30,7 +30,6 @@ export async function GET() {
 
     return NextResponse.json(admin)
   } catch (error) {
-    console.error('خطأ في جلب بيانات المشرف:', error)
     return NextResponse.json({ error: 'خطأ في الخادم الداخلي' }, { status: 500 })
   }
 }
@@ -72,14 +71,12 @@ export async function PUT(request: NextRequest) {
             await deleteFromCloudinary(publicId)
           }
         } catch (error) {
-          console.error('خطأ في حذف الصورة القديمة:', error)
-          // نتجاهل الخطأ ونكمل برفع الصورة الجديدة
+          // Ignore error and continue with new image upload
         }
       }
 
       // رفع الصورة الجديدة
       try {
-        console.log('بدء رفع الصورة الجديدة...')
         const buffer = Buffer.from(await imageFile.arrayBuffer())
         const uploadResult = await uploadProfileImageToCloudinary(
           buffer,
@@ -87,15 +84,12 @@ export async function PUT(request: NextRequest) {
           'image'
         )
         imageUrl = uploadResult.url
-        console.log('تم رفع الصورة بنجاح:', imageUrl)
       } catch (error) {
-        console.error('خطأ في رفع الصورة:', error)
         return NextResponse.json({ error: 'فشل في رفع الصورة' }, { status: 500 })
       }
     }
 
     // تحديث بيانات المشرف
-    console.log('تحديث بيانات المشرف...')
     const updatedAdmin = await prisma.admin.update({
       where: { id: session.user.id },
       data: {
@@ -110,11 +104,8 @@ export async function PUT(request: NextRequest) {
         updatedAt: true
       }
     })
-
-    console.log('تم تحديث بيانات المشرف:', updatedAdmin)
     return NextResponse.json(updatedAdmin)
   } catch (error) {
-    console.error('خطأ في تحديث بيانات المشرف:', error)
     return NextResponse.json({ error: 'خطأ في الخادم الداخلي' }, { status: 500 })
   }
 }

@@ -61,7 +61,6 @@ export async function GET(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Error fetching documents:', error)
     // إرجاع هيكل صحيح مع مصفوفة فارغة للملفات لتجنب مشاكل في .map()
     return NextResponse.json({
       documents: [],
@@ -198,7 +197,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(document, { status: 201 })
   } catch (error) {
-    console.error('Error uploading document:', error)
     return NextResponse.json(
       { error: "فشل في رفع الملف" },
       { status: 500 }
