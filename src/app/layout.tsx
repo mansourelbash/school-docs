@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { El_Messiri, Almarai } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers";
-import Header from "@/components/Header";
+import MobileNav from "@/components/MobileNav"
 import { ThemeProvider } from "@/contexts/ThemeContext"
 
 const elMessiri = El_Messiri({
@@ -31,14 +31,19 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#2563eb" />
+      </head>
       <body
         className={`${elMessiri.variable} ${almarai.variable} gulf-arabic-text antialiased`}
       >
         
         <Providers>
           {/* الهيدر يظهر في جميع الصفحات */}
-     
           {children}
+          {/* شريط التنقل السفلي للجوال */}
+          <MobileNav />
         </Providers>
       </body>
     </html>
