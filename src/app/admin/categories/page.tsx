@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import ThemeChanger from "@/components/ThemeChanger"
+// import ThemeChanger from "@/components/ThemeChanger"
 import UserProfile from "@/components/UserProfile"
 import { 
   FolderOpen, 
@@ -289,7 +289,7 @@ export default function CategoriesManagement() {
               </div>
             </div>
             <div className="admin-header-actions">
-              <ThemeChanger />
+              {/* ThemeChanger أصبح في الهيدر الأساسي */}
               <UserProfile />
               <Button
                 onClick={() => setShowAddCategory(true)}

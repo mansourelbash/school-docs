@@ -687,3 +687,491 @@ header .action-buttons {
     width: 100% !important;
   }
 }
+
+/* =================================== */
+/* تصميم الأزرار الإدارية المحسن */
+/* =================================== */
+
+/* زر تسجيل الدخول - أولوية عالية */
+.admin-btn-login {
+  border: 2px solid #3b82f6;
+  color: #2563eb;
+  background: transparent;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-btn-login:hover {
+  background: linear-gradient(to right, #3b82f6, #2563eb);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.admin-btn-login:focus {
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+}
+
+.admin-btn-login::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+
+.admin-btn-login:hover::before {
+  left: 100%;
+}
+
+/* زر إدارة المستخدمين - ثانوي */
+.admin-btn-users {
+  border: 2px solid #8b5cf6;
+  color: #7c3aed;
+  background: transparent;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-btn-users:hover {
+  background: linear-gradient(to right, #8b5cf6, #7c3aed);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.admin-btn-users:focus {
+  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.3);
+}
+
+.admin-btn-users::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+
+.admin-btn-users:hover::before {
+  left: 100%;
+}
+
+/* زر لوحة التحكم */
+.admin-btn-dashboard {
+  border: 2px solid #f59e0b;
+  color: #d97706;
+  background: transparent;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border-radius: 0.75rem;
+  padding: 0.625rem 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  outline: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-btn-dashboard:hover {
+  background: linear-gradient(to right, #f59e0b, #d97706);
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.admin-btn-dashboard:focus {
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.3);
+}
+
+.admin-btn-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.6s;
+}
+
+.admin-btn-dashboard:hover::before {
+  left: 100%;
+}
+
+.dark .admin-btn-dashboard {
+  border-color: #fbbf24;
+  color: #fbbf24;
+}
+
+.dark .admin-btn-dashboard:hover {
+  border-color: #fcd34d;
+}
+
+/* تحسينات إضافية للأزرار الإدارية */
+.admin-btn-login:active,
+.admin-btn-users:active {
+  transform: scale(0.95);
+}
+
+/* إضافة مؤثرات للثيم المظلم */
+.dark .admin-btn-login {
+  border-color: #60a5fa;
+  color: #60a5fa;
+}
+
+.dark .admin-btn_login:hover {
+  border-color: #93c5fd;
+}
+
+.dark .admin-btn-users {
+  border-color: #a78bfa;
+  color: #a78bfa;
+}
+
+.dark .admin-btn-users:hover {
+  border-color: #c4b5fd;
+}
+
+/* تحسين responsive للأزرار الإدارية */
+@media (max-width: 640px) {
+  .admin-btn-login,
+  .admin-btn-users {
+    padding: 0.5rem;
+    min-width: 40px;
+    height: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-btn-login,
+  .admin-btn-users {
+    padding: 0.625rem 0.75rem;
+    min-width: 44px;
+  }
+}
+
+/* مؤثرات خاصة للشاشات الكبيرة */
+@media (min-width: 1024px) {
+  .admin-btn-login:hover,
+  .admin-btn-users:hover {
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  }
+}
+
+/* إضافة تأثير النبض للأزرار الإدارية عند التحميل */
+.admin-btn-loading {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+/* تحسين إمكانية الوصول */
+.admin-btn-login:focus-visible,
+.admin-btn-users:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* =================================== */
+/* أزرار العمليات والأدوات */
+/* =================================== */
+
+/* أزرار تحميل المجلدات */
+.action-btn-download-sub {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(to right, #10b981, #0d9488);
+  color: white;
+  font-weight: 500;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.action-btn-download-sub:hover {
+  background: linear-gradient(to right, #059669, #0f766e);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.action-btn-download-main {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(to right, #3b82f6, #4f46e5);
+  color: white;
+  font-weight: 500;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.action-btn-download-main:hover {
+  background: linear-gradient(to right, #2563eb, #3730a3);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+/* زر مسح الفلاتر */
+.action-btn-clear {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(to right, #6b7280, #4b5563);
+  color: white;
+  font-weight: 500;
+  padding: 0.625rem 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1);
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.action-btn-clear:hover {
+  background: linear-gradient(to right, #4b5563, #374151);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+/* أزرار التحكم في العرض */
+.view-mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+}
+
+.view-mode-btn.active {
+  background: rgb(var(--primary));
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.view-mode-btn:not(.active) {
+  color: rgb(var(--foreground-muted));
+  background: transparent;
+}
+
+.view-mode-btn:not(.active):hover {
+  color: rgb(var(--primary));
+  background: rgba(var(--primary-light), 0.5);
+}
+
+/* أزرار التنقل بين الصفحات */
+.pagination-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.pagination-btn:not(:disabled) {
+  background: rgb(var(--primary));
+  color: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-btn:not(:disabled):hover {
+  background: rgb(var(--primary-dark));
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: scale(1.05);
+}
+
+.pagination-btn:disabled {
+  background: rgb(var(--secondary));
+  color: rgb(var(--foreground-muted));
+  cursor: not-allowed;
+}
+
+.pagination-btn.current {
+  background: rgb(var(--primary));
+  color: white;
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+  transform: scale(0.95);
+}
+
+/* تحسينات responsive للأزرار */
+@media (max-width: 640px) {
+  .action-btn-download-sub,
+  .action-btn-download-main,
+  .action-btn-clear {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+  }
+  
+  .pagination-btn {
+    padding: 0.375rem 0.5rem;
+    min-width: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .action-btn-download-sub span,
+  .action-btn-download-main span,
+  .action-btn-clear span {
+    display: none;
+  }
+  
+  .action-btn-download-sub,
+  .action-btn-download-main,
+  .action-btn-clear {
+    min-width: 44px;
+    justify-content: center;
+  }
+}
+
+/* =================================== */
+/* تحسين بطاقات الملفات وحل مشاكل Animation */
+/* =================================== */
+
+/* بطاقة الملف الرئيسية */
+.document-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0) scale(1);
+  transform-origin: center;
+  will-change: transform, box-shadow;
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+.document-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* معاينة الملف */
+.document-preview {
+  overflow: hidden;
+  border-radius: 0.75rem 0.75rem 0 0;
+  position: relative;
+}
+
+.document-preview::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(0,0,0,0.1) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.document-card:hover .document-preview::after {
+  opacity: 1;
+}
+
+/* شارة نوع الملف */
+.file-extension-badge {
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.document-card:hover .file-extension-badge {
+  transform: scale(1.1);
+}
+
+/* حاوي زر التحميل */
+.download-button-container {
+  position: relative;
+  z-index: 5;
+}
+
+/* زر التحميل */
+.download-button {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  transition: left 0.6s ease;
+}
+
+.download-button:hover::before {
+  left: 100%;
+}
+
+.download-button:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* تحسين responsive للبطاقات */
+@media (max-width: 768px) {
+  .document-card:hover {
+    transform: translateY(-4px) scale(1.01);
+  }
+}
+
+@media (max-width: 640px) {
+  .document-card:hover {
+    transform: translateY(-2px) scale(1.005);
+  }
+}
+
+/* تحسين الأداء */
+@media (prefers-reduced-motion: reduce) {
+  .document-card {
+    transition: none;
+  }
+  
+  .document-card:hover {
+    transform: none;
+  }
+}
+
+/* =================================== */
+/* نهاية تحسين بطاقات الملفات */
+/* =================================== */

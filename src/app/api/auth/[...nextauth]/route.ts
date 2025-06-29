@@ -2,9 +2,8 @@ import NextAuth from "next-auth"
 import type { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
-import prisma from "@/lib/prisma"
 
-export const authOptions: NextAuthOptions = {
+const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
       name: "credentials",
@@ -14,30 +13,58 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
+          console.log('❌ بيانات الدخول مفقودة')
           return null
         }
 
-        const admin = await prisma.admin.findUnique({
-          where: { email: credentials.email }
-        })
+        console.log('🚀 محاولة تسجيل دخول:', credentials.email)
 
-        if (!admin) {
+        try {
+          // استخدام pg مباشرة للبحث في جدول users
+          const { Client } = require('pg')
+          const client = new Client({
+            connectionString: process.env.DATABASE_URL,
+            ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+          })
+
+          await client.connect()
+          console.log('🔍 البحث عن المستخدم:', credentials.email)
+
+          const result = await client.query(
+            'SELECT id, name, email, password, role FROM users WHERE email = $1',
+            [credentials.email]
+          )
+
+          await client.end()
+
+          if (result.rows.length === 0) {
+            console.log('❌ المستخدم غير موجود:', credentials.email)
+            return null
+          }
+
+          const user = result.rows[0]
+          console.log('✅ تم العثور على المستخدم:', user.email, 'Role:', user.role)
+
+          const isValidPassword = await bcrypt.compare(
+            credentials.password,
+            user.password
+          )
+
+          if (!isValidPassword) {
+            console.log('❌ كلمة المرور غير صحيحة للمستخدم:', user.email)
+            return null
+          }
+
+          console.log('✅ تم تسجيل الدخول بنجاح:', user.email)
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role
+          }
+        } catch (error) {
+          console.error('❌ خطأ في التحقق:', error)
           return null
-        }
-
-        const isValidPassword = await bcrypt.compare(
-          credentials.password,
-          admin.password
-        )
-
-        if (!isValidPassword) {
-          return null
-        }
-
-        return {
-          id: admin.id,
-          email: admin.email,
-          name: admin.name,
         }
       }
     })
@@ -46,16 +73,75 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/admin/login",
   },
+  debug: true, // إضافة debugging
   callbacks: {
-    async jwt({ token, user }) {
+    async jwt({ token, user, account }) {
+      console.log('🔧 JWT Callback - User:', user, 'Token:', token, 'Account:', account)
       if (user) {
+        // إضافة بيانات المستخدم عند أول تسجيل دخول
         token.id = user.id
+        token.role = (user as any).role
+        console.log('✅ تم تحديث JWT token:', { id: token.id, role: token.role })
+      } else if (token.email && !token.role) {
+        // إذا لم يكن الدور موجود، ابحث عنه في قاعدة البيانات
+        try {
+          const { Client } = require('pg')
+          const client = new Client({
+            connectionString: process.env.DATABASE_URL
+          })
+          await client.connect()
+          
+          const result = await client.query(
+            'SELECT id, role FROM users WHERE email = $1',
+            [token.email]
+          )
+          
+          if (result.rows.length > 0) {
+            token.id = result.rows[0].id
+            token.role = result.rows[0].role
+            console.log('✅ تم جلب الدور من قاعدة البيانات:', token.role)
+          }
+          
+          await client.end()
+        } catch (error) {
+          console.error('❌ خطأ في جلب الدور:', error)
+        }
       }
       return token
     },
     async session({ session, token }) {
+      console.log('🔧 Session Callback - Token:', token, 'Session:', session)
       if (token && session.user) {
-        session.user.id = token.id as string
+        (session.user as any).id = token.id as string
+        ;(session.user as any).role = token.role as string
+        
+        // جلب الصورة الشخصية المحدثة
+        try {
+          const { Client } = require('pg')
+          const client = new Client({
+            connectionString: process.env.DATABASE_URL
+          })
+          await client.connect()
+          
+          const result = await client.query(
+            'SELECT image FROM users WHERE email = $1',
+            [session.user.email]
+          )
+          
+          if (result.rows.length > 0) {
+            (session.user as any).image = result.rows[0].image
+          }
+          
+          await client.end()
+        } catch (error) {
+          console.error('❌ خطأ في جلب الصورة:', error)
+        }
+        
+        console.log('✅ تم تحديث Session:', { 
+          id: (session.user as any).id, 
+          role: (session.user as any).role,
+          image: (session.user as any).image 
+        })
       }
       return session
     }
@@ -64,3 +150,4 @@ export const authOptions: NextAuthOptions = {
 
 const handler = NextAuth(authOptions)
 export { handler as GET, handler as POST }
+export { authOptions }

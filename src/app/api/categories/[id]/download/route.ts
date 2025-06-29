@@ -159,8 +159,38 @@ export async function GET(
                 if (response.ok) {
                   const fileBuffer = await response.arrayBuffer()
                   
-                  // استخدام fileExtension بدلاً من fileType
-                  const fileExtension = document.fileExtension || 'bin'
+                  // معالجة أفضل لامتداد الملف
+                  let fileExtension = document.fileExtension
+                  
+                  // إذا لم يكن هناك امتداد، حاول استخراجه من originalName
+                  if (!fileExtension && document.originalName) {
+                    const parts = document.originalName.split('.')
+                    if (parts.length > 1) {
+                      fileExtension = parts[parts.length - 1]
+                    }
+                  }
+                  
+                  // إذا لم يزل لا يوجد امتداد، حاول تحديده من mimeType
+                  if (!fileExtension && document.mimeType) {
+                    if (document.mimeType.includes('pdf')) fileExtension = 'pdf'
+                    else if (document.mimeType.includes('word') || document.mimeType.includes('document')) {
+                      fileExtension = document.mimeType.includes('openxml') ? 'docx' : 'doc'
+                    }
+                    else if (document.mimeType.includes('excel') || document.mimeType.includes('spreadsheet')) {
+                      fileExtension = document.mimeType.includes('openxml') ? 'xlsx' : 'xls'
+                    }
+                    else if (document.mimeType.includes('powerpoint') || document.mimeType.includes('presentation')) {
+                      fileExtension = document.mimeType.includes('openxml') ? 'pptx' : 'ppt'
+                    }
+                    else if (document.mimeType.startsWith('image/')) {
+                      fileExtension = document.mimeType.split('/')[1]
+                    }
+                    else fileExtension = 'bin'
+                  }
+                  
+                  // احتياطي أخير
+                  if (!fileExtension) fileExtension = 'bin'
+                  
                   const fileName = `${document.titleAr || document.title}.${fileExtension}`
                   
                   archive.append(Buffer.from(fileBuffer), { name: fileName })

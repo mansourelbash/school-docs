@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { El_Messiri, Almarai } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/providers";
+import Header from "@/components/Header";
+import { ThemeProvider } from "@/contexts/ThemeContext"
 
 const elMessiri = El_Messiri({
   subsets: ["arabic"],
@@ -32,7 +34,10 @@ export default function RootLayout({
       <body
         className={`${elMessiri.variable} ${almarai.variable} gulf-arabic-text antialiased`}
       >
+        
         <Providers>
+          {/* الهيدر يظهر في جميع الصفحات */}
+     
           {children}
         </Providers>
       </body>

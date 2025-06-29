@@ -1,25 +1,26 @@
-"use client"
 
-import { useState } from 'react'
-import { useTheme } from '@/contexts/ThemeContext'
-import { 
-  Palette, 
-  Sun, 
-  Moon, 
+"use client";
+
+import { useState } from 'react';
+import { useTheme } from '@/contexts/ThemeContext';
+import {
+  Palette,
+  Sun,
+  Moon,
   Check,
   Settings
-} from 'lucide-react'
+} from 'lucide-react';
 
 const themeColors = [
   { name: 'رمادي', value: 'gray' as const, bgClass: 'bg-slate-500' },
   { name: 'أزرق', value: 'blue' as const, bgClass: 'bg-blue-500' },
   { name: 'أخضر', value: 'green' as const, bgClass: 'bg-green-500' },
   { name: 'تيل', value: 'teal' as const, bgClass: 'bg-teal-500' },
-]
+];
 
 export default function ThemeChanger() {
-  const { theme, themeColor, toggleTheme, setThemeColor } = useTheme()
-  const [isOpen, setIsOpen] = useState(false)
+  const { theme, themeColor, toggleTheme, setThemeColor } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div className="relative">
@@ -34,13 +35,13 @@ export default function ThemeChanger() {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div 
-            className="fixed inset-0 z-40"
+          <div
+            className="fixed inset-0 z-[100000]"
             onClick={() => setIsOpen(false)}
           />
-          
+
           {/* Theme Panel */}
-          <div className="absolute left-0 top-full mt-2 w-80 theme-card rounded-2xl shadow-2xl border-theme z-50 p-6">
+          <div className="fixed left-1/2 top-1/2 z-[100001] -translate-x-1/2 -translate-y-1/2 w-80 theme-card rounded-2xl shadow-2xl border-theme p-6">
             <div className="space-y-6">
               {/* Header */}
               <div className="flex items-center space-x-3 space-x-reverse">
@@ -67,7 +68,7 @@ export default function ThemeChanger() {
                     <Sun className="h-4 w-4" />
                     <span className="gulf-text-sm font-medium">فاتح</span>
                   </button>
-                  
+
                   <button
                     onClick={toggleTheme}
                     className={`flex-1 flex items-center justify-center space-x-2 space-x-reverse py-3 px-4 rounded-xl border-2 transition-all duration-300 ${
@@ -140,5 +141,5 @@ export default function ThemeChanger() {
         </>
       )}
     </div>
-  )
+  );
 }

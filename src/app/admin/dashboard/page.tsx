@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import EditDocumentModal from "@/components/EditDocumentModal"
 import DeleteConfirmModal from "@/components/DeleteConfirmModal"
-import ThemeChanger from "@/components/ThemeChanger"
+// import ThemeChanger from "@/components/ThemeChanger"
 import UserProfile from "@/components/UserProfile"
 import { 
   FileText, 
@@ -202,7 +202,7 @@ export default function AdminDashboard() {
               </h1>
             </div>
             <div className="flex items-center space-x-4 space-x-reverse">
-              <ThemeChanger />
+              {/* ThemeChanger أصبح في الهيدر الأساسي */}
               <UserProfile />
               <Button 
                 variant="outline" 

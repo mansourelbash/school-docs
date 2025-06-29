@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -14,20 +7,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Admin model for authentication
 model Admin {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String
   name      String
-  image     String?  // صورة المشرف
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  image     String?
 
   @@map("admins")
 }
 
-// Main category model
+model User {
+  id          String     @id @default(cuid())
+  email       String     @unique
+  password    String
+  name        String
+  image       String?
+  role        String?    @default("USER")
+  department  String?
+  permissions Json?
+  created_at  DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at  DateTime?  @default(now()) @db.Timestamp(6)
+  user_roles  UserRole[]
+
+  @@map("users")
+}
+
+model UserRole {
+  id          String    @id @default(cuid())
+  user_id     String?
+  role        String
+  permissions Json?
+  assigned_by String?
+  assigned_at DateTime? @default(now()) @db.Timestamp(6)
+  expires_at  DateTime? @db.Timestamp(6)
+  users       User?     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@map("user_roles")
+}
+
 model MainCategory {
   id            String        @id @default(cuid())
   name          String        @unique
@@ -35,15 +55,12 @@ model MainCategory {
   description   String?
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
-  
-  // Relations
-  subCategories SubCategory[]
   documents     Document[]
+  subCategories SubCategory[]
 
   @@map("main_categories")
 }
 
-// Sub category model
 model SubCategory {
   id             String       @id @default(cuid())
   name           String
@@ -52,40 +69,35 @@ model SubCategory {
   mainCategoryId String
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
-
-  // Relations
-  mainCategory   MainCategory @relation(fields: [mainCategoryId], references: [id], onDelete: Cascade)
   documents      Document[]
+  mainCategory   MainCategory @relation(fields: [mainCategoryId], references: [id], onDelete: Cascade)
 
   @@unique([name, mainCategoryId])
   @@unique([nameAr, mainCategoryId])
   @@map("sub_categories")
 }
 
-// Document model
 model Document {
-  id              String       @id @default(cuid())
-  title           String
-  titleAr         String
-  description     String?
-  descriptionAr   String?
-  fileName        String
-  originalName    String
-  filePath        String       // Local path (for backward compatibility)
-  cloudinaryUrl   String?      // Cloudinary secure URL
-  cloudinaryId    String?      // Cloudinary public ID for deletion
-  fileSize        Int
-  mimeType        String
-  fileExtension   String
-  uploadDate      DateTime     @default(now())
-  createdAt       DateTime     @default(now())
-  updatedAt       DateTime     @updatedAt
-  mainCategoryId  String
-  subCategoryId   String?
-
-  // Relations
-  mainCategory    MainCategory @relation(fields: [mainCategoryId], references: [id], onDelete: Cascade)
-  subCategory     SubCategory? @relation(fields: [subCategoryId], references: [id], onDelete: SetNull)
+  id             String       @id @default(cuid())
+  title          String
+  titleAr        String
+  description    String?
+  descriptionAr  String?
+  fileName       String
+  originalName   String
+  filePath       String
+  fileSize       Int
+  mimeType       String
+  fileExtension  String
+  uploadDate     DateTime     @default(now())
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  mainCategoryId String
+  subCategoryId  String?
+  cloudinaryId   String?
+  cloudinaryUrl  String?
+  mainCategory   MainCategory @relation(fields: [mainCategoryId], references: [id], onDelete: Cascade)
+  subCategory    SubCategory? @relation(fields: [subCategoryId], references: [id])
 
   @@map("documents")
 }
