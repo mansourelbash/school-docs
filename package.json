@@ -36,10 +36,10 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "uploadthing": "^7.7.3",
-    "prisma": "^6.10.1"
+    "@prisma/client": "^6.10.1"
   },
   "devDependencies": {
-    "@prisma/client": "^6.10.1",
+    "prisma": "^6.10.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
