@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
-import { authOptions } from "../auth/[...nextauth]/route"
+import authOptions from '../auth/authOptions'
 import prisma from "@/lib/prisma"
-import { writeFile, mkdir } from "fs/promises"
+import { uploadToCloudinary } from "@/lib/cloudinary"
 import path from "path"
 
 // Get all documents with filtering and search
@@ -61,11 +61,16 @@ export async function GET(request: NextRequest) {
       }
     })
   } catch (error) {
-    console.error('Error fetching documents:', error)
-    return NextResponse.json(
-      { error: "فشل في جلب الملفات" },
-      { status: 500 }
-    )
+    // إرجاع هيكل صحيح مع مصفوفة فارغة للملفات لتجنب مشاكل في .map()
+    return NextResponse.json({
+      documents: [],
+      pagination: {
+        total: 0,
+        page: 1,
+        limit: 50,
+        totalPages: 0
+      }
+    }, { status: 500 })
   }
 }
 
@@ -125,25 +130,48 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Get category information for folder structure
+    const mainCategory = await prisma.mainCategory.findUnique({
+      where: { id: mainCategoryId }
+    })
+
+    if (!mainCategory) {
+      return NextResponse.json(
+        { error: "التصنيف الرئيسي غير موجود" },
+        { status: 404 }
+      )
+    }
+
+    let subCategory = null
+    if (subCategoryId) {
+      subCategory = await prisma.subCategory.findUnique({
+        where: { id: subCategoryId }
+      })
+
+      if (!subCategory) {
+        return NextResponse.json(
+          { error: "التصنيف الفرعي غير موجود" },
+          { status: 404 }
+        )
+      }
+    }
+
     // Generate unique filename
     const fileExtension = path.extname(file.name)
     const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}${fileExtension}`
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads')
-    const filePath = path.join(uploadDir, fileName)
 
-    // Ensure upload directory exists
-    try {
-      await mkdir(uploadDir, { recursive: true })
-    } catch (error) {
-      // Directory might already exist
-    }
-
-    // Save file
+    // Upload file to Cloudinary with organized folder structure
     const bytes = await file.arrayBuffer()
     const buffer = Buffer.from(bytes)
-    await writeFile(filePath, buffer)
+    
+    const cloudinaryResult = await uploadToCloudinary(
+      buffer,
+      fileName,
+      mainCategory.nameAr,
+      subCategory?.nameAr
+    )
 
-    // Save document to database
+    // Save document to database with Cloudinary info
     const document = await prisma.document.create({
       data: {
         title,
@@ -152,7 +180,9 @@ export async function POST(request: NextRequest) {
         descriptionAr: descriptionAr || '',
         fileName,
         originalName: file.name,
-        filePath: `/uploads/${fileName}`,
+        filePath: cloudinaryResult.url, // Store Cloudinary URL as main path
+        cloudinaryUrl: cloudinaryResult.url,
+        cloudinaryId: cloudinaryResult.publicId,
         fileSize: file.size,
         mimeType: file.type,
         fileExtension,
@@ -167,7 +197,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(document, { status: 201 })
   } catch (error) {
-    console.error('Error uploading document:', error)
     return NextResponse.json(
       { error: "فشل في رفع الملف" },
       { status: 500 }

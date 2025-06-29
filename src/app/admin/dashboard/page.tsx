@@ -6,6 +6,8 @@ import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import EditDocumentModal from "@/components/EditDocumentModal"
 import DeleteConfirmModal from "@/components/DeleteConfirmModal"
+// import ThemeChanger from "@/components/ThemeChanger"
+import UserProfile from "@/components/UserProfile"
 import { 
   FileText, 
   FolderOpen, 
@@ -28,7 +30,12 @@ interface Document {
   descriptionAr?: string
   fileName: string
   originalName: string
+  filePath: string
+  cloudinaryUrl?: string
+  cloudinaryId?: string
   fileSize: number
+  mimeType: string
+  fileExtension: string
   uploadDate: string
   mainCategoryId: string
   subCategoryId?: string
@@ -109,7 +116,7 @@ export default function AdminDashboard() {
         totalSize
       })
     } catch (error) {
-      console.error('Error fetching data:', error)
+      // Handle error silently
     } finally {
       setIsLoading(false)
     }
@@ -144,13 +151,14 @@ export default function AdminDashboard() {
         throw new Error('فشل في حذف الملف')
       }
 
+      // Update local state
       setDocuments(prevDocs => prevDocs.filter(doc => doc.id !== documentId))
       setStats(prevStats => ({
         ...prevStats,
         totalDocuments: prevStats.totalDocuments - 1
       }))
+      
     } catch (error) {
-      console.error('Error deleting document:', error)
       alert('حدث خطأ أثناء حذف الملف')
     }
   }
@@ -194,12 +202,20 @@ export default function AdminDashboard() {
               </h1>
             </div>
             <div className="flex items-center space-x-4 space-x-reverse">
-              <span className="text-sm text-gray-800 arabic-text font-medium">
-                مرحباً، {session?.user?.name}
-              </span>
+              {/* ThemeChanger أصبح في الهيدر الأساسي */}
+              <UserProfile />
+              <Button 
+                variant="outline" 
+                onClick={() => router.push("/admin/categories")}
+                className="flex items-center gulf-button"
+              >
+                <FolderOpen className="h-4 w-4 ml-2" />
+                إدارة التصنيفات
+              </Button>
               <Button 
                 variant="outline" 
                 onClick={() => router.push("/admin/upload")}
+                className="gulf-button"
               >
                 <Plus className="h-4 w-4 ml-2" />
                 رفع ملف جديد

@@ -1,0 +1,564 @@
+@import "tailwindcss";
+
+/* خطوط عربية محسنة */
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap');
+
+/* متغيرات الثيم الأساسية */
+:root {
+  /* Light Theme - Blue (Default) */
+  --primary: 59 130 246; /* blue-500 */
+  --primary-dark: 37 99 235; /* blue-600 */
+  --primary-light: 147 197 253; /* blue-300 */
+  --primary-foreground: 255 255 255;
+  --secondary: 241 245 249; /* slate-100 */
+  --secondary-foreground: 15 23 42;
+  --background: 255 255 255;
+  --background-secondary: 248 250 252; /* slate-50 */
+  --foreground: 15 23 42;
+  --card: 255 255 255;
+  --card-foreground: 15 23 42;
+  --border: 226 232 240; /* slate-200 */
+  --input: 255 255 255;
+  --input-foreground: 15 23 42;
+  --ring: 59 130 246;
+  --muted: 248 250 252;
+  --muted-foreground: 100 116 139;
+  --accent: 59 130 246;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+  
+  /* خطوط */
+  --font-el-messiri: 'El Messiri', 'Almarai', 'Noto Sans Arabic', sans-serif;
+  --font-almarai: 'Almarai', 'El Messiri', 'Noto Sans Arabic', sans-serif;
+}
+
+[data-theme="dark"] {
+  --primary: 59 130 246;
+  --primary-dark: 37 99 235;
+  --primary-light: 147 197 253;
+  --primary-foreground: 255 255 255;
+  --secondary: 30 41 59; /* slate-800 */
+  --secondary-foreground: 248 250 252;
+  --background: 15 23 42; /* slate-900 */
+  --background-secondary: 30 41 59;
+  --foreground: 248 250 252;
+  --card: 30 41 59;
+  --card-foreground: 248 250 252;
+  --border: 51 65 85; /* slate-700 */
+  --input: 30 41 59;
+  --input-foreground: 248 250 252;
+  --ring: 59 130 246;
+  --muted: 51 65 85;
+  --muted-foreground: 148 163 184;
+  --accent: 59 130 246;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+}
+
+[data-theme="green"] {
+  --primary: 34 197 94; /* green-500 */
+  --primary-dark: 22 163 74; /* green-600 */
+  --primary-light: 134 239 172; /* green-300 */
+  --primary-foreground: 255 255 255;
+  --secondary: 240 253 244; /* green-50 */
+  --secondary-foreground: 22 101 52;
+  --background: 255 255 255;
+  --background-secondary: 240 253 244;
+  --foreground: 22 101 52;
+  --card: 255 255 255;
+  --card-foreground: 22 101 52;
+  --border: 187 247 208; /* green-200 */
+  --input: 255 255 255;
+  --input-foreground: 22 101 52;
+  --ring: 34 197 94;
+  --muted: 240 253 244;
+  --muted-foreground: 107 114 128;
+  --accent: 34 197 94;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+}
+
+[data-theme="purple"] {
+  --primary: 168 85 247; /* purple-500 */
+  --primary-dark: 147 51 234; /* purple-600 */
+  --primary-light: 196 181 253; /* purple-300 */
+  --primary-foreground: 255 255 255;
+  --secondary: 250 245 255; /* purple-50 */
+  --secondary-foreground: 88 28 135;
+  --background: 255 255 255;
+  --background-secondary: 250 245 255;
+  --foreground: 88 28 135;
+  --card: 255 255 255;
+  --card-foreground: 88 28 135;
+  --border: 196 181 253; /* purple-200 */
+  --input: 255 255 255;
+  --input-foreground: 88 28 135;
+  --ring: 168 85 247;
+  --muted: 250 245 255;
+  --muted-foreground: 107 114 128;
+  --accent: 168 85 247;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+}
+
+[data-theme="orange"] {
+  --primary: 249 115 22; /* orange-500 */
+  --primary-dark: 234 88 12; /* orange-600 */
+  --primary-light: 253 186 116; /* orange-300 */
+  --primary-foreground: 255 255 255;
+  --secondary: 255 247 237; /* orange-50 */
+  --secondary-foreground: 154 52 18;
+  --background: 255 255 255;
+  --background-secondary: 255 247 237;
+  --foreground: 154 52 18;
+  --card: 255 255 255;
+  --card-foreground: 154 52 18;
+  --border: 254 215 170; /* orange-200 */
+  --input: 255 255 255;
+  --input-foreground: 154 52 18;
+  --ring: 249 115 22;
+  --muted: 255 247 237;
+  --muted-foreground: 107 114 128;
+  --accent: 249 115 22;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+}
+
+[data-theme="red"] {
+  --primary: 239 68 68; /* red-500 */
+  --primary-dark: 220 38 38; /* red-600 */
+  --primary-light: 252 165 165; /* red-300 */
+  --primary-foreground: 255 255 255;
+  --secondary: 254 242 242; /* red-50 */
+  --secondary-foreground: 153 27 27;
+  --background: 255 255 255;
+  --background-secondary: 254 242 242;
+  --foreground: 153 27 27;
+  --card: 255 255 255;
+  --card-foreground: 153 27 27;
+  --border: 254 202 202; /* red-200 */
+  --input: 255 255 255;
+  --input-foreground: 153 27 27;
+  --ring: 239 68 68;
+  --muted: 254 242 242;
+  --muted-foreground: 107 114 128;
+  --accent: 239 68 68;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+}
+
+[data-theme="teal"] {
+  --primary: 20 184 166; /* teal-500 */
+  --primary-dark: 13 148 136; /* teal-600 */
+  --primary-light: 153 246 228; /* teal-300 */
+  --primary-foreground: 255 255 255;
+  --secondary: 240 253 250; /* teal-50 */
+  --secondary-foreground: 19 78 74;
+  --background: 255 255 255;
+  --background-secondary: 240 253 250;
+  --foreground: 19 78 74;
+  --card: 255 255 255;
+  --card-foreground: 19 78 74;
+  --border: 153 246 228; /* teal-200 */
+  --input: 255 255 255;
+  --input-foreground: 19 78 74;
+  --ring: 20 184 166;
+  --muted: 240 253 250;
+  --muted-foreground: 107 114 128;
+  --accent: 20 184 166;
+  --accent-foreground: 255 255 255;
+  --success: 34 197 94;
+  --warning: 245 158 11;
+  --error: 239 68 68;
+}
+
+/* تطبيق الثيمات على جميع العناصر */
+body {
+  background-color: rgb(var(--background));
+  color: rgb(var(--foreground));
+  font-family: var(--font-el-messiri);
+  direction: rtl;
+  text-align: right;
+  font-weight: 400;
+  line-height: 1.8;
+  letter-spacing: 0.25px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Base Theme Classes */
+.theme-bg { background-color: rgb(var(--background)); }
+.theme-bg-secondary { background-color: rgb(var(--background-secondary)); }
+.theme-text { color: rgb(var(--foreground)); }
+.theme-card { background-color: rgb(var(--card)); color: rgb(var(--card-foreground)); }
+.theme-border { border-color: rgb(var(--border)); }
+.theme-primary { background-color: rgb(var(--primary)); color: rgb(var(--primary-foreground)); }
+.theme-primary-dark { background-color: rgb(var(--primary-dark)); color: rgb(var(--primary-foreground)); }
+.theme-secondary { background-color: rgb(var(--secondary)); color: rgb(var(--secondary-foreground)); }
+.theme-muted { background-color: rgb(var(--muted)); color: rgb(var(--muted-foreground)); }
+
+/* Button Theme Classes */
+.btn-primary {
+  background-color: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+  border: 1px solid rgb(var(--primary));
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: rgb(var(--primary-dark));
+  border-color: rgb(var(--primary-dark));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(var(--primary), 0.3);
+}
+
+.btn-secondary {
+  background-color: rgb(var(--secondary));
+  color: rgb(var(--secondary-foreground));
+  border: 1px solid rgb(var(--border));
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgb(var(--muted));
+  transform: translateY(-1px);
+}
+
+/* Input Theme Classes */
+.input-theme {
+  background-color: rgb(var(--input));
+  color: rgb(var(--input-foreground));
+  border: 2px solid rgb(var(--border));
+  transition: all 0.3s ease;
+}
+
+.input-theme:focus {
+  border-color: rgb(var(--primary));
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
+}
+
+.input-theme::placeholder {
+  color: rgb(var(--muted-foreground));
+}
+
+/* Card Theme Classes */
+.card-theme {
+  background-color: rgb(var(--card));
+  color: rgb(var(--card-foreground));
+  border: 1px solid rgb(var(--border));
+  transition: all 0.3s ease;
+}
+
+.card-theme:hover {
+  box-shadow: 0 10px 25px rgba(var(--primary), 0.1);
+  transform: translateY(-2px);
+}
+
+/* Header Theme Classes */
+.header-theme {
+  background-color: rgba(var(--card), 0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgb(var(--border));
+}
+
+/* Modern Card */
+.modern-card {
+  background-color: rgb(var(--card));
+  color: rgb(var(--card-foreground));
+  border: 1px solid rgb(var(--border));
+  border-radius: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.modern-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(var(--primary), 0.1);
+  transform: translateY(-2px);
+}
+
+/* Gradient Backgrounds */
+.gulf-gradient {
+  background: linear-gradient(135deg, rgb(var(--primary)), rgb(var(--primary-dark)));
+}
+
+.theme-gradient-bg {
+  background: linear-gradient(135deg, 
+    rgb(var(--background-secondary)), 
+    rgb(var(--background))
+  );
+}
+
+/* Text Theme Classes */
+.text-theme-primary { color: rgb(var(--primary)); }
+.text-theme-secondary { color: rgb(var(--secondary-foreground)); }
+.text-theme-muted { color: rgb(var(--muted-foreground)); }
+.text-theme-success { color: rgb(var(--success)); }
+.text-theme-warning { color: rgb(var(--warning)); }
+.text-theme-error { color: rgb(var(--error)); }
+
+/* Background Theme Classes */
+.bg-theme-primary { background-color: rgb(var(--primary)); }
+.bg-theme-primary-light { background-color: rgb(var(--primary-light)); }
+.bg-theme-secondary { background-color: rgb(var(--secondary)); }
+.bg-theme-success { background-color: rgb(var(--success)); }
+.bg-theme-warning { background-color: rgb(var(--warning)); }
+.bg-theme-error { background-color: rgb(var(--error)); }
+
+/* Border Theme Classes */
+.border-theme { border-color: rgb(var(--border)); }
+.border-theme-primary { border-color: rgb(var(--primary)); }
+
+/* Focus and Hover States */
+.focus-theme:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgb(var(--primary));
+}
+
+.hover-theme-primary:hover {
+  background-color: rgb(var(--primary));
+  color: rgb(var(--primary-foreground));
+}
+
+/* خطوط عربية محسنة */
+.gulf-text-sm {
+  font-family: var(--font-almarai);
+  font-weight: 400;
+  line-height: 1.9;
+  letter-spacing: 0.25px;
+}
+
+.gulf-text-base {
+  font-family: var(--font-el-messiri);
+  font-weight: 500;
+  line-height: 1.8;
+  letter-spacing: 0.3px;
+}
+
+.gulf-text-lg {
+  font-family: var(--font-el-messiri);
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 0.4px;
+}
+
+.gulf-text-xl {
+  font-family: var(--font-el-messiri);
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+.gulf-text-2xl {
+  font-family: var(--font-el-messiri);
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 0.6px;
+}
+
+.gulf-text-3xl {
+  font-family: var(--font-el-messiri);
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.7px;
+}
+
+/* Button Styles */
+.gulf-button {
+  font-family: var(--font-el-messiri);
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 12px 24px;
+  transition: all 0.3s ease;
+  margin: 0 4px;
+}
+
+.gulf-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(var(--primary), 0.3);
+}
+
+/* Action Button Groups */
+.action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-buttons .gulf-button {
+  margin: 0;
+}
+
+/* Line Clamp Utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+}
+
+/* Select Theme Classes */
+.select-theme {
+  background-color: rgb(var(--input));
+  color: rgb(var(--input-foreground));
+  border: 2px solid rgb(var(--border));
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.select-theme:focus {
+  border-color: rgb(var(--primary));
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(var(--primary), 0.1);
+}
+
+/* Table Theme Classes */
+.table-theme {
+  background-color: rgb(var(--card));
+  color: rgb(var(--card-foreground));
+}
+
+.table-theme th {
+  background-color: rgb(var(--secondary));
+  color: rgb(var(--secondary-foreground));
+  border-bottom: 1px solid rgb(var(--border));
+}
+
+.table-theme td {
+  border-bottom: 1px solid rgb(var(--border));
+}
+
+.table-theme tbody tr:hover {
+  background-color: rgb(var(--secondary));
+}
+
+/* Override Tailwind classes to use theme variables */
+.bg-blue-100,
+.bg-blue-50 {
+  background-color: rgb(var(--primary-light)) !important;
+}
+
+.bg-blue-600,
+.bg-blue-500 {
+  background-color: rgb(var(--primary)) !important;
+}
+
+.bg-blue-700 {
+  background-color: rgb(var(--primary-dark)) !important;
+}
+
+.text-blue-600,
+.text-blue-500 {
+  color: rgb(var(--primary)) !important;
+}
+
+.text-blue-800,
+.text-blue-700 {
+  color: rgb(var(--primary-dark)) !important;
+}
+
+.border-blue-500,
+.border-blue-600 {
+  border-color: rgb(var(--primary)) !important;
+}
+
+.text-gray-900 {
+  color: rgb(var(--foreground)) !important;
+}
+
+.text-gray-600,
+.text-gray-500 {
+  color: rgb(var(--muted-foreground)) !important;
+}
+
+.bg-gray-50,
+.bg-gray-100 {
+  background-color: rgb(var(--secondary)) !important;
+}
+
+.bg-white {
+  background-color: rgb(var(--card)) !important;
+}
+
+.border-gray-200,
+.border-gray-300 {
+  border-color: rgb(var(--border)) !important;
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.scale-on-hover {
+  transition: transform 0.3s ease;
+}
+
+.scale-on-hover:hover {
+  transform: scale(1.02);
+}
+
+/* Dark mode specific adjustments */
+[data-theme="dark"] .bg-gray-50 {
+  background-color: rgb(var(--secondary)) !important;
+}
+
+[data-theme="dark"] .bg-gray-100 {
+  background-color: rgb(var(--muted)) !important;
+}
+
+[data-theme="dark"] .border-gray-200 {
+  border-color: rgb(var(--border)) !important;
+}
+
+[data-theme="dark"] .bg-white {
+  background-color: rgb(var(--card)) !important;
+  color: rgb(var(--card-foreground)) !important;
+}
+
+[data-theme="dark"] .text-gray-900 {
+  color: rgb(var(--foreground)) !important;
+}
+
+[data-theme="dark"] .text-gray-600,
+[data-theme="dark"] .text-gray-500 {
+  color: rgb(var(--muted-foreground)) !important;
+}

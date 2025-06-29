@@ -32,7 +32,7 @@ export default function AdminLogin() {
       } else {
         const session = await getSession()
         if (session) {
-          router.push("/admin/dashboard")
+          router.push("/")
         }
       }
     } catch (error) {
