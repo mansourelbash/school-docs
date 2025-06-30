@@ -7,16 +7,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Admin {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  password  String
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  image     String?
+// 🧾 Enum لتحديد أدوار المستخدمين
+enum UserRoleEnum {
+  ADMIN
+  TEACHER
+  VIEWER
+  STUDENT
+}
 
-  @@map("admins")
+model School {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  address   String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  users     User[]
+  documents Document[]
+
+  @@map("schools")
 }
 
 model User {
@@ -25,12 +34,16 @@ model User {
   password    String
   name        String
   image       String?
-  role        String?    @default("USER")
+  role        UserRoleEnum @default(VIEWER)  // ✅ الآن نستخدم Enum
   department  String?
   permissions Json?
   created_at  DateTime?  @default(now()) @db.Timestamp(6)
   updated_at  DateTime?  @default(now()) @db.Timestamp(6)
-  user_roles  UserRole[]
+
+  schoolId    String
+  school      School     @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+
+  user_roles  UserRole[] // إذا كنت تستخدم جدول أدوار إضافي
 
   @@map("users")
 }
@@ -96,6 +109,11 @@ model Document {
   subCategoryId  String?
   cloudinaryId   String?
   cloudinaryUrl  String?
+
+  schoolId       String
+  school         School       @relation(fields: [schoolId], references: [id], onDelete: Cascade)
+  isPublic       Boolean      @default(false) 
+
   mainCategory   MainCategory @relation(fields: [mainCategoryId], references: [id], onDelete: Cascade)
   subCategory    SubCategory? @relation(fields: [subCategoryId], references: [id])
 
