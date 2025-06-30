@@ -36,14 +36,12 @@ async function isUserAdmin(userEmail: string): Promise<boolean> {
 export async function GET() {
   try {
     const session = await getServerSession(authOptions)
-    
     if (!session?.user) {
       return NextResponse.json({ error: 'Unauthorized - No session' }, { status: 401 })
     }
 
     // التحقق من أن المستخدم مدير نظام
     const isAdmin = await isUserAdmin(session.user.email!)
-    
     if (!isAdmin) {
       console.log('❌ المستخدم ليس مدير نظام - مرفوض')
       return NextResponse.json({ 
@@ -51,22 +49,27 @@ export async function GET() {
       }, { status: 403 })
     }
 
-    // استخدام pg مباشرة
+    // جلب schoolId الخاص بمدير النظام الحالي
     const client = new Client({
       connectionString: process.env.DATABASE_URL,
       ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
     })
-
     await client.connect()
-    
+    const schoolResult = await client.query('SELECT "schoolId" FROM users WHERE email = $1', [session.user.email])
+    const schoolId = schoolResult.rows[0]?.schoolId
+    if (!schoolId) {
+      await client.end()
+      return NextResponse.json({ error: 'لم يتم العثور على مدرسة لمدير النظام' }, { status: 400 })
+    }
+
+    // جلب المستخدمين فقط من نفس المدرسة
     const result = await client.query(`
       SELECT id, name, email, role, department, permissions, image, "created_at", "updated_at"
       FROM users 
+      WHERE "schoolId" = $1
       ORDER BY "created_at" DESC
-    `)
-
+    `, [schoolId])
     await client.end()
-
     return NextResponse.json(result.rows)
   } catch (error) {
     console.error('Error fetching users:', error)
