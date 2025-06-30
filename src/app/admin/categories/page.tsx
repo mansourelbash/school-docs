@@ -273,14 +273,14 @@ export default function CategoriesManagement() {
     <div className="min-h-screen theme-gradient-bg">
       {/* Header */}
       <header className="header-theme">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="admin-header-content h-20">
-            <div className="admin-header-info flex items-center space-x-4 space-x-reverse">
-              <div className="p-3 gulf-gradient rounded-2xl shadow-lg">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="admin-header-content flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 gap-4">
+            <div className="admin-header-info flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 w-full">
+              <div className="p-3 gulf-gradient rounded-2xl shadow-lg mb-2 sm:mb-0">
                 <Settings className="h-6 w-6 text-white" />
               </div>
               <div>
-                <h1 className="gulf-text-2xl text-theme-primary font-bold">
+                <h1 className="gulf-text-xl sm:gulf-text-2xl text-theme-primary font-bold">
                   إدارة التصنيفات
                 </h1>
                 <p className="gulf-text-sm text-theme-muted">
@@ -288,19 +288,18 @@ export default function CategoriesManagement() {
                 </p>
               </div>
             </div>
-            <div className="admin-header-actions">
-              {/* ThemeChanger أصبح في الهيدر الأساسي */}
+            <div className="admin-header-actions flex flex-wrap gap-2 w-full sm:w-auto justify-end">
               <UserProfile />
               <Button
                 onClick={() => setShowAddCategory(true)}
-                className="gulf-button btn-primary px-6 py-3 rounded-xl"
+                className="gulf-button btn-primary w-full sm:w-auto px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center gap-2"
               >
-                <Plus className="h-5 w-5 ml-2" />
-                تصنيف جديد
+                <Plus className="h-5 w-5" />
+                <span className="hidden xs:inline">تصنيف جديد</span>
               </Button>
               <Button
                 onClick={() => router.push('/admin/dashboard')}
-                className="gulf-button btn-secondary px-6 py-3 rounded-xl"
+                className="gulf-button btn-secondary w-full sm:w-auto px-4 py-2 rounded-lg text-sm font-semibold flex items-center justify-center gap-2"
               >
                 العودة للوحة التحكم
               </Button>
@@ -311,12 +310,12 @@ export default function CategoriesManagement() {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Categories Tree */}
-        <div className="modern-card p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="gulf-text-xl font-bold theme-text">
+        <div className="modern-card p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-2 sm:gap-0">
+            <h2 className="gulf-text-lg sm:gulf-text-xl font-bold theme-text">
               هيكل التصنيفات والمجلدات
             </h2>
-            <div className="gulf-text-sm text-theme-muted">
+            <div className="gulf-text-sm text-theme-muted mt-2 sm:mt-0">
               {categories.length} تصنيف رئيسي
             </div>
           </div>
@@ -325,38 +324,38 @@ export default function CategoriesManagement() {
             {categories.map((category) => (
               <div key={category.id} className="card-theme border-theme rounded-xl overflow-hidden">
                 {/* Main Category */}
-                <div className="theme-secondary p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3 space-x-reverse">
-                      <button
-                        onClick={() => toggleCategory(category.id)}
-                        className="p-1 hover-theme-primary rounded-lg transition-colors"
-                      >
-                        {expandedCategories.has(category.id) ? (
-                          <ChevronDown className="h-4 w-4 text-theme-muted" />
-                        ) : (
-                          <ChevronRight className="h-4 w-4 text-theme-muted" />
-                        )}
-                      </button>
-                      <FolderOpen className="h-6 w-6 text-theme-primary" />
+                <div className="theme-secondary p-4 flex flex-col gap-2">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 space-x-reverse">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => toggleCategory(category.id)}
+                          className="p-1 hover-theme-primary rounded-lg transition-colors"
+                        >
+                          {expandedCategories.has(category.id) ? (
+                            <ChevronDown className="h-4 w-4 text-theme-muted" />
+                          ) : (
+                            <ChevronRight className="h-4 w-4 text-theme-muted" />
+                          )}
+                        </button>
+                        <FolderOpen className="h-6 w-6 text-theme-primary" />
+                      </div>
                       <div>
-                        <h3 className="gulf-text-lg font-semibold theme-text">
+                        <h3 className="gulf-text-base sm:gulf-text-lg font-semibold theme-text">
                           {category.nameAr}
                         </h3>
-                        <p className="gulf-text-sm text-theme-muted">
+                        <p className="gulf-text-xs sm:gulf-text-sm text-theme-muted">
                           {category.name}
                         </p>
                       </div>
                     </div>
-                    
-                    <div className="action-buttons">
-                      <div className="gulf-text-sm text-theme-muted theme-card px-3 py-1 rounded-lg">
+                    <div className="action-buttons flex flex-wrap gap-2 justify-end mt-2 md:mt-0">
+                      <div className="gulf-text-xs sm:gulf-text-sm text-theme-muted theme-card px-2 sm:px-3 py-1 rounded-lg">
                         {category._count?.documents || 0} ملف
                       </div>
-                      <div className="gulf-text-sm text-theme-muted theme-card px-3 py-1 rounded-lg">
+                      <div className="gulf-text-xs sm:gulf-text-sm text-theme-muted theme-card px-2 sm:px-3 py-1 rounded-lg">
                         {category._count.subCategories} فرعي
                       </div>
-                      
                       <Button
                         onClick={() => handleDownloadCategory(category.id, category.nameAr)}
                         className="p-2 bg-theme-success hover:bg-theme-success text-white rounded-lg"
@@ -364,7 +363,6 @@ export default function CategoriesManagement() {
                       >
                         <Archive className="h-4 w-4" />
                       </Button>
-                      
                       <Button
                         onClick={() => openAddSubCategory(category.id)}
                         className="p-2 btn-primary rounded-lg"
@@ -372,14 +370,12 @@ export default function CategoriesManagement() {
                       >
                         <FolderPlus className="h-4 w-4" />
                       </Button>
-                      
                       <Button
                         onClick={() => openEditCategory(category)}
                         className="p-2 bg-theme-warning hover:bg-theme-warning text-white rounded-lg"
                       >
                         <Edit2 className="h-4 w-4" />
                       </Button>
-                      
                       <Button
                         onClick={() => {
                           setDeleteItem({ ...category, type: 'category' })
@@ -391,9 +387,8 @@ export default function CategoriesManagement() {
                       </Button>
                     </div>
                   </div>
-                  
                   {category.description && (
-                    <p className="gulf-text-sm text-theme-muted mt-2 mr-8">
+                    <p className="gulf-text-xs sm:gulf-text-sm text-theme-muted mt-2 mr-0 sm:mr-8">
                       {category.description}
                     </p>
                   )}
@@ -404,25 +399,23 @@ export default function CategoriesManagement() {
                   <div className="theme-bg border-theme">
                     {category.subCategories.map((subCategory) => (
                       <div key={subCategory.id} className="p-4 border-theme last:border-b-0">
-                        <div className="flex items-center justify-between mr-8">
-                          <div className="flex items-center space-x-3 space-x-reverse">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mr-0 md:mr-8">
+                          <div className="flex items-center gap-2 sm:gap-3 space-x-reverse">
                             <div className="w-6"></div>
                             <FolderOpen className="h-5 w-5 text-theme-success" />
                             <div>
-                              <h4 className="gulf-text-base font-medium theme-text">
+                              <h4 className="gulf-text-sm sm:gulf-text-base font-medium theme-text">
                                 {subCategory.nameAr}
                               </h4>
-                              <p className="gulf-text-sm text-theme-muted">
+                              <p className="gulf-text-xs sm:gulf-text-sm text-theme-muted">
                                 {subCategory.name}
                               </p>
                             </div>
                           </div>
-                          
-                          <div className="action-buttons">
-                            <div className="gulf-text-sm text-theme-muted theme-secondary px-2 py-1 rounded">
+                          <div className="action-buttons flex flex-wrap gap-2 justify-end mt-2 md:mt-0">
+                            <div className="gulf-text-xs sm:gulf-text-sm text-theme-muted theme-secondary px-2 py-1 rounded">
                               {subCategory._count?.documents || 0} ملف
                             </div>
-                            
                             <Button
                               onClick={() => handleDownloadCategory(subCategory.id, subCategory.nameAr)}
                               className="p-1 bg-theme-success hover:bg-theme-success text-white rounded"
@@ -430,14 +423,12 @@ export default function CategoriesManagement() {
                             >
                               <Download className="h-3 w-3" />
                             </Button>
-                            
                             <Button
                               onClick={() => openEditSubCategory(subCategory)}
                               className="p-1 bg-theme-warning hover:bg-theme-warning text-white rounded"
                             >
                               <Edit2 className="h-3 w-3" />
                             </Button>
-                            
                             <Button
                               onClick={() => {
                                 setDeleteItem({ ...subCategory, type: 'subcategory' })
@@ -449,9 +440,8 @@ export default function CategoriesManagement() {
                             </Button>
                           </div>
                         </div>
-                        
                         {subCategory.description && (
-                          <p className="gulf-text-sm text-gray-600 mt-2 mr-14">
+                          <p className="gulf-text-xs sm:gulf-text-sm text-gray-600 mt-2 mr-0 md:mr-14">
                             {subCategory.description}
                           </p>
                         )}
@@ -551,8 +541,8 @@ export default function CategoriesManagement() {
       
       {/* Edit Category Modal */}
       {showEditCategory && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full">
+<div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4 sm:px-6">
+  <div className="bg-white w-full max-w-lg sm:max-w-xl rounded-xl shadow-xl overflow-y-auto max-h-[90vh]">
             <div className="p-6 border-b border-gray-200">
               <h3 className="gulf-text-lg font-semibold text-gray-800">
                 تعديل التصنيف الرئيسي

@@ -4,9 +4,9 @@ import { Home, Search, Upload, User } from "lucide-react";
 
 const navItems = [
   { href: "/", label: "الرئيسية", icon: Home },
-  { href: "/search", label: "بحث", icon: Search },
-  { href: "/upload", label: "رفع ملف", icon: Upload },
-  { href: "/account", label: "حسابي", icon: User },
+  { href: "/admin/dashboard", label: "بحث", icon: Search },
+  { href: "/admin/upload", label: "رفع ملف", icon: Upload },
+  { href: "/account/settings", label: "حسابي", icon: User },
 ];
 
 export default function MobileNav() {

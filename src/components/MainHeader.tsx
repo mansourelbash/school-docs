@@ -25,7 +25,7 @@ export default function MainHeader({ documentsCount = 0, categoriesCount = 0, ca
             </div>
           </div>
           {/* مجموعة الأزرار */}
-          <div className="flex items-center space-x-2 sm:space-x-4 space-x-reverse">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-4 space-x-2 sm:space-x-4 space-x-reverse">
             {session && (
               <UserMenu user={session.user} userRole={canManageUsers ? 'ADMIN' : undefined} />
             )}

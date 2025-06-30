@@ -88,9 +88,15 @@ export default function EditDocumentModal({
       })
       
       // Set subcategories based on main category
-      const mainCategory = categories.find(cat => cat.id === document.mainCategoryId)
-      if (mainCategory) {
-        setSubCategories(mainCategory.subCategories)
+      if (Array.isArray(categories) && categories.length > 0) {
+        const mainCategory = categories.find(cat => cat.id === document.mainCategoryId)
+        if (mainCategory) {
+          setSubCategories(mainCategory.subCategories)
+        } else {
+          setSubCategories([])
+        }
+      } else {
+        setSubCategories([])
       }
     }
   }, [document, categories])

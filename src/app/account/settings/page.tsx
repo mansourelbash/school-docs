@@ -240,14 +240,14 @@ export default function AccountSettingsPage() {
     <div className="min-h-screen theme-gradient-bg" dir="rtl">
       {/* Header */}
       <header className="header-theme border-b border-theme">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <div className="flex items-center space-x-4 space-x-reverse gap-2">
-              <div className="p-3 rounded-2xl shadow-lg bg-gradient-to-r from-gray-500 to-gray-600 transform hover:scale-105 transition-transform duration-300">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 h-auto sm:h-20">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+              <div className="p-3 rounded-2xl shadow-lg bg-gradient-to-r from-gray-500 to-gray-600 transform hover:scale-105 transition-transform duration-300 mb-2 sm:mb-0">
                 <Settings className="h-8 w-8 text-white" />
               </div>
               <div>
-                <h1 className="gulf-text-xl sm:gulf-text-2xl text-theme-primary font-bold">
+                <h1 className="gulf-text-lg sm:gulf-text-xl md:gulf-text-2xl text-theme-primary font-bold">
                   إعدادات الحساب
                 </h1>
                 <p className="gulf-text-xs sm:gulf-text-sm text-theme-muted">
@@ -255,10 +255,9 @@ export default function AccountSettingsPage() {
                 </p>
               </div>
             </div>
-
-            <div className="flex items-center space-x-4 space-x-reverse gap-2">
+            <div className="flex flex-wrap gap-2 w-full sm:w-auto justify-end">
               <Link href="/dashboard">
-                <Button variant="outline" size="sm" className="admin-btn-login">
+                <Button variant="outline" size="sm" className="admin-btn-login w-full sm:w-auto">
                   <ArrowLeft className="h-4 w-4 ml-2" />
                   العودة للداشبورد
                 </Button>
@@ -267,7 +266,7 @@ export default function AccountSettingsPage() {
                 onClick={handleSignOut}
                 variant="outline" 
                 size="sm" 
-                className="admin-btn-users"
+                className="admin-btn-users w-full sm:w-auto"
               >
                 <LogOut className="h-4 w-4 ml-2" />
                 تسجيل الخروج
@@ -277,7 +276,7 @@ export default function AccountSettingsPage() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-4xl mx-auto px-2 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* رسائل التنبيه */}
         {message.content && (
           <div className={`mb-6 p-4 rounded-lg ${
@@ -289,9 +288,9 @@ export default function AccountSettingsPage() {
           </div>
         )}
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
           {/* معلومات الملف الشخصي */}
-          <div className="modern-card p-8">
+          <div className="modern-card p-4 sm:p-8">
             <h2 className="gulf-text-xl font-bold text-theme-primary mb-6 flex items-center">
               <User className="h-6 w-6 ml-2" />
               الملف الشخصي
@@ -376,7 +375,7 @@ export default function AccountSettingsPage() {
               <Button
                 onClick={handleSaveProfile}
                 disabled={isLoading}
-                className="w-full admin-btn-login"
+                className="w-full admin-btn-login mt-4"
               >
                 <Save className="h-4 w-4 ml-2" />
                 {isLoading ? 'جاري الحفظ...' : 'حفظ التغييرات'}
@@ -385,7 +384,7 @@ export default function AccountSettingsPage() {
           </div>
 
           {/* تغيير كلمة المرور */}
-          <div className="modern-card p-8">
+          <div className="modern-card p-4 sm:p-8">
             <h2 className="gulf-text-xl font-bold text-theme-primary mb-6 flex items-center">
               <Lock className="h-6 w-6 ml-2" />
               تغيير كلمة المرور
@@ -464,7 +463,7 @@ export default function AccountSettingsPage() {
               <Button
                 onClick={handleChangePassword}
                 disabled={isLoading || !userInfo.currentPassword || !userInfo.newPassword || !userInfo.confirmPassword}
-                className="w-full admin-btn-users"
+                className="w-full admin-btn-users mt-4"
               >
                 <Lock className="h-4 w-4 ml-2" />
                 {isLoading ? 'جاري التغيير...' : 'تغيير كلمة المرور'}
@@ -474,9 +473,9 @@ export default function AccountSettingsPage() {
         </div>
 
         {/* معلومات إضافية */}
-        <div className="modern-card p-8 mt-8">
-          <h2 className="gulf-text-xl font-bold text-theme-primary mb-6">معلومات إضافية</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="modern-card p-4 sm:p-8 mt-8">
+          <h2 className="gulf-text-lg sm:gulf-text-xl font-bold text-theme-primary mb-6">معلومات إضافية</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
             <div className="text-center p-4 bg-blue-50 rounded-lg">
               <User className="h-8 w-8 text-blue-600 mx-auto mb-2" />
               <p className="gulf-text-sm font-medium text-blue-800">آخر تسجيل دخول</p>

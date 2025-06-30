@@ -194,31 +194,31 @@ export default function AdminDashboard() {
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 h-auto sm:h-16">
+            <div className="flex items-center justify-center sm:justify-start">
               <FileText className="h-8 w-8 text-blue-600 ml-3" />
-              <h1 className="text-xl font-bold text-gray-900 arabic-text-lg">
+              <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 arabic-text-lg">
                 نظام إدارة الملفات المدرسية
               </h1>
             </div>
-            <div className="flex items-center space-x-4 space-x-reverse">
+            <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-4 mt-2 sm:mt-0 w-full sm:w-auto">
               {/* ThemeChanger أصبح في الهيدر الأساسي */}
               <UserProfile />
               <Button 
                 variant="outline" 
                 onClick={() => router.push("/admin/categories")}
-                className="flex items-center gulf-button"
+                className="gulf-button w-full sm:w-auto py-2 px-4 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 bg-white hover:bg-blue-50 border border-blue-200 shadow-sm transition-all"
               >
-                <FolderOpen className="h-4 w-4 ml-2" />
-                إدارة التصنيفات
+                <FolderOpen className="h-5 w-5" />
+                <span className="hidden xs:inline">إدارة التصنيفات</span>
               </Button>
               <Button 
                 variant="outline" 
                 onClick={() => router.push("/admin/upload")}
-                className="gulf-button"
+                className="gulf-button w-full sm:w-auto py-2 px-4 rounded-lg text-sm font-semibold flex items-center justify-center gap-2 bg-blue-600 text-white hover:bg-blue-700 border border-blue-600 shadow-sm transition-all"
               >
-                <Plus className="h-4 w-4 ml-2" />
-                رفع ملف جديد
+                <Plus className="h-5 w-5" />
+                <span className="hidden xs:inline">رفع ملف جديد</span>
               </Button>
             </div>
           </div>
@@ -228,7 +228,7 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
           <div className="bg-white rounded-lg shadow p-6">
             <div className="flex items-center">
               <div className="p-2 bg-blue-100 rounded-lg">
@@ -270,7 +270,7 @@ export default function AdminDashboard() {
         <div className="bg-white rounded-lg shadow mb-6">
           <div className="p-6">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
-              <div className="flex items-center space-x-4 space-x-reverse">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center space-y-3 md:space-y-0 md:space-x-4 md:space-x-reverse w-full md:w-auto">
                 <div className="relative flex-1 md:w-96">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-600" />
                   <input
@@ -315,19 +315,19 @@ export default function AdminDashboard() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     العنوان
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     التصنيف
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     حجم الملف
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     تاريخ الرفع
                   </th>
-                  <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-2 sm:px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                     الإجراءات
                   </th>
                 </tr>
@@ -335,102 +335,97 @@ export default function AdminDashboard() {
               <tbody className="bg-white divide-y divide-gray-200">
                 {filteredDocuments.map((doc) => (
                   <tr key={doc.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div>
-                        <div className="text-sm font-medium text-gray-900">
-                          {doc.titleAr}
-                        </div>
-                        <div className="text-sm text-gray-500">
-                          {doc.title}
-                        </div>
-                      </div>
+                    <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap">
+                      <div className="text-sm font-semibold text-gray-900">{doc.titleAr}</div>
+                      <div className="text-xs text-gray-500">{doc.title}</div>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900">
-                        {doc.mainCategory.nameAr}
-                      </div>
-                      {doc.subCategory && (
-                        <div className="text-sm text-gray-500">
-                          {doc.subCategory.nameAr}
-                        </div>
-                      )}
+                    <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm text-gray-700">
+                      {doc.mainCategory?.nameAr || "غير مصنف"}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm text-gray-700">
                       {formatFileSize(doc.fileSize)}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {new Date(doc.uploadDate).toLocaleDateString('ar-SA')}
+                    <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap text-sm text-gray-700">
+                      {new Date(doc.uploadDate).toLocaleDateString("ar-EG")}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="flex items-center space-x-2 space-x-reverse">
+                    <td className="px-2 sm:px-6 py-2 sm:py-4 whitespace-nowrap">
+                      <div className="flex flex-wrap gap-1 sm:gap-2 justify-start sm:justify-end">
                         <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => window.open(`/api/documents/${doc.id}/download`, '_blank')}
-                          title="تنزيل الملف"
-                        >
-                          <Download className="h-4 w-4" />
-                        </Button>
-                        <Button 
-                          variant="ghost" 
+                          variant="outline"
                           size="sm"
                           onClick={() => handleEditDocument(doc)}
-                          title="تعديل الملف"
+                          aria-label="تعديل الملف"
+                          className="flex items-center justify-center min-h-[36px]"
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
+                        <a
+                          href={doc.cloudinaryUrl || doc.filePath}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download={doc.originalName}
+                          className="flex items-center justify-center min-h-[36px] px-3 py-1 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100 transition"
+                          aria-label="تنزيل الملف"
+                        >
+                          <Download className="h-4 w-4" />
+                        </a>
+                        <Button
+                          variant="destructive"
                           size="sm"
                           onClick={() => handleDeleteDocument(doc)}
-                          title="حذف الملف"
+                          aria-label="حذف الملف"
+                          className="flex items-center justify-center min-h-[36px]"
                         >
-                          <Trash2 className="h-4 w-4 text-red-600" />
+                          <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>
                     </td>
                   </tr>
                 ))}
+                {filteredDocuments.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
+                      لا توجد ملفات لعرضها.
+                    </td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
-
-          {filteredDocuments.length === 0 && (
-            <div className="text-center py-12">
-              <FileText className="mx-auto h-12 w-12 text-gray-600" />
-              <h3 className="mt-2 text-sm font-medium text-gray-900">لا توجد ملفات</h3>
-              <p className="mt-1 text-sm text-gray-500">
-                {searchTerm || selectedCategory ? 'لا توجد ملفات تطابق معايير البحث' : 'ابدأ برفع أول ملف'}
-              </p>
-            </div>
-          )}
         </div>
+
+        {/* Edit Document Modal */}
+        {editModalOpen && selectedDocument && (
+          <EditDocumentModal
+            document={selectedDocument}
+            onClose={() => {
+              setEditModalOpen(false)
+              setSelectedDocument(null)
+            }}
+            onSave={(updatedDoc) => {
+              handleSaveDocument(updatedDoc)
+              setEditModalOpen(false)
+            }}
+          />
+        )}
+
+        {/* Delete Confirmation Modal */}
+        {deleteModalOpen && selectedDocument && (
+          <DeleteConfirmModal
+            title="تأكيد الحذف"
+            description={`هل أنت متأكد أنك تريد حذف الملف "${selectedDocument.titleAr}"؟ لا يمكن التراجع عن هذا الإجراء.`}
+            onConfirm={async () => {
+              await handleConfirmDelete(selectedDocument.id)
+              setDeleteModalOpen(false)
+              setSelectedDocument(null)
+            }}
+            onCancel={() => {
+              setDeleteModalOpen(false)
+              setSelectedDocument(null)
+            }}
+          />
+        )}
       </main>
-
-      {/* Edit Document Modal */}
-      {selectedDocument && (
-        <EditDocumentModal
-          document={selectedDocument}
-          categories={categories}
-          isOpen={editModalOpen}
-          onClose={() => {
-            setEditModalOpen(false)
-            setSelectedDocument(null)
-          }}
-          onSave={handleSaveDocument}
-        />
-      )}
-
-      {/* Delete Confirmation Modal */}
-      <DeleteConfirmModal
-        document={selectedDocument}
-        isOpen={deleteModalOpen}
-        onClose={() => {
-          setDeleteModalOpen(false)
-          setSelectedDocument(null)
-        }}
-        onConfirm={handleConfirmDelete}
-      />
     </div>
   )
 }
