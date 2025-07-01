@@ -17,6 +17,7 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+     "@tailwindcss/postcss": "^4.1.11",
     "@heroicons/react": "^2.2.0",
     "@prisma/client": "^6.10.1",
     "@types/archiver": "^6.0.3",
@@ -42,7 +43,6 @@
     "uploadthing": "^7.7.3"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.1.11",
     "@types/node": "^20.19.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
