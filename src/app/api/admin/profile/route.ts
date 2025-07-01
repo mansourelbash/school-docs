@@ -12,15 +12,15 @@ export async function GET() {
       return NextResponse.json({ error: 'غير مصرح' }, { status: 401 })
     }
 
-    const admin = await prisma.admin.findUnique({
+    const admin = await prisma.user.findUnique({
       where: { id: session.user.id },
       select: {
         id: true,
         name: true,
         email: true,
         image: true,
-        createdAt: true,
-        updatedAt: true
+        created_at: true,
+        updated_at: true
       }
     })
 
@@ -51,7 +51,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // البحث عن المشرف الحالي
-    const currentAdmin = await prisma.admin.findUnique({
+    const currentAdmin = await prisma.user.findUnique({
       where: { id: session.user.id }
     })
 
@@ -90,7 +90,7 @@ export async function PUT(request: NextRequest) {
     }
 
     // تحديث بيانات المشرف
-    const updatedAdmin = await prisma.admin.update({
+    const updatedAdmin = await prisma.user.update({
       where: { id: session.user.id },
       data: {
         name,
@@ -101,7 +101,7 @@ export async function PUT(request: NextRequest) {
         name: true,
         email: true,
         image: true,
-        updatedAt: true
+        updated_at: true
       }
     })
     return NextResponse.json(updatedAdmin)
